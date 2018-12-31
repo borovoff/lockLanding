@@ -1,0 +1,9 @@
+<div class="navbar">
+    <ul>
+        <li *ngFor="let item of items">
+            <a (click)="change(item)" href="#">
+                {{item}}
+            </a>
+        </li>
+    </ul>
+</div>
