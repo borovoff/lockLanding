@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import {NavbarComponent} from './navbar/navbar.component';
 import {BottomNavbarComponent} from './bottom-navbar/bottom-navbar.component';
 import {SceneComponent} from './scene/scene.component';
+import {ThreejsComponent} from './threejs.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavbarComponent,
         BottomNavbarComponent,
-        SceneComponent
+        SceneComponent,
+        ThreejsComponent
     ],
     imports: [
         BrowserModule,

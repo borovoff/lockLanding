@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 
 @Component({
     selector: 'app-bottom-navbar',
@@ -6,6 +6,8 @@ import { Component } from '@angular/core';
     styleUrls: ['../app.component.scss']
 })
 export class BottomNavbarComponent {
+    @Output() notify = new EventEmitter<any>();
+
     items = ['Видео', 'Нутро'];
     currentItem = 'Фото';
 
@@ -14,5 +16,7 @@ export class BottomNavbarComponent {
 
         this.items[index] = this.currentItem;
         this.currentItem = item;
+
+        this.notify.emit(item);
     }
 }

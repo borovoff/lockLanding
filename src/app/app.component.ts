@@ -6,5 +6,29 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    title = 'ulock';
+    imgHidden = false;
+    frameHidden = true;
+    modelHidden = true;
+
+    onNotify(item) {
+        switch (item) {
+            case 'Видео':
+                this.frameHidden = false;
+                this.imgHidden = true;
+                this.modelHidden = true;
+                break;
+            case 'Фото':
+                this.imgHidden = false;
+                this.frameHidden = true;
+                this.modelHidden = true;
+                break;
+            case 'Нутро':
+                this.imgHidden = true;
+                this.frameHidden = true;
+                this.modelHidden = false;
+                break;
+            default:
+                break;
+        }
+    }
 }

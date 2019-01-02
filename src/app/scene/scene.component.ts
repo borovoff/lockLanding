@@ -7,7 +7,7 @@ import 'three/examples/js/loaders/ColladaLoader';
 @Component({
     selector: 'app-scene',
     templateUrl: './scene.component.html',
-    styleUrls: ['./scene.component.scss']
+    styleUrls: ['../app.component.scss']
 })
 export class SceneComponent implements AfterViewInit {
 
@@ -36,7 +36,7 @@ export class SceneComponent implements AfterViewInit {
 
     private createScene() {
         this.scene = new THREE.Scene();
-        this.scene.add(new THREE.AxisHelper(200));
+        this.scene.add(new THREE.AxesHelper(200));
         const loader = new THREE.ColladaLoader();
         loader.load('assets/model/multimaterial.dae', this.onModelLoadingCompleted);
     }
@@ -58,7 +58,7 @@ export class SceneComponent implements AfterViewInit {
     }
 
     private createCamera() {
-        let aspectRatio = this.getAspectRatio();
+        const aspectRatio = this.getAspectRatio();
         this.camera = new THREE.PerspectiveCamera(
             this.fieldOfView,
             aspectRatio,
