@@ -1,8 +1,8 @@
 <div class="navbar">
     <ul>
         <li *ngFor="let item of items">
-            <a href="#">
-                {{item}}
+            <a routerLink="{{item.link}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                {{item.name}}
             </a>
         </li>
     </ul>

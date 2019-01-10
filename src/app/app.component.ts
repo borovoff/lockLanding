@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
     selector: 'app-root',
@@ -6,29 +7,13 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-    imgHidden = false;
-    frameHidden = true;
-    modelHidden = true;
+    main = true;
 
-    onNotify(item) {
-        switch (item) {
-            case 'Видео':
-                this.frameHidden = false;
-                this.imgHidden = true;
-                this.modelHidden = true;
-                break;
-            case 'Фото':
-                this.imgHidden = false;
-                this.frameHidden = true;
-                this.modelHidden = true;
-                break;
-            case 'Нутро':
-                this.imgHidden = true;
-                this.frameHidden = true;
-                this.modelHidden = false;
-                break;
-            default:
-                break;
-        }
+    constructor(private router: Router) {
+        router.events.subscribe((val) => {
+            if (val instanceof NavigationEnd) {
+                this.main = val.url !== '/';
+            }
+        });
     }
 }
