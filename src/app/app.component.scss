@@ -105,11 +105,39 @@ app-navbar {
 }
 
 .wrapper {
-    margin-right: auto;
-    margin-left:  auto;
-
+    font-family: Helvetica, serif;
+    margin: 20px auto;
     max-width: 960px;
 
     padding-right: 10px;
     padding-left:  10px;
+    .contact {
+        font-size: large;
+        mat-icon {
+            position: relative;
+            top: 5px;
+        }
+    }
+
+    .icon-appstore {
+        img {
+            height: 50px;
+            margin: 10px;
+        }
+    }
+
+    .icon-googleplay {
+        img {
+            height: 70px;
+            border: 0;
+        }
+    }
+
+    .row {
+        display: flex;
+    }
+
+    .column {
+        flex: 50%;
+    }
 }

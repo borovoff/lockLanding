@@ -6,9 +6,9 @@ import { Component } from '@angular/core';
     styleUrls: ['../app.component.scss']
 })
 export class MainComponent {
-    imgHidden = false;
+    imgHidden = true;
     frameHidden = true;
-    modelHidden = true;
+    modelHidden = false;
 
     onNotify(item) {
         switch (item) {

@@ -11,6 +11,8 @@ import {MainComponent} from './main/main.component';
 import {ContactComponent} from './contact/contact.component';
 import {OrderComponent} from './order/order.component';
 import {DownloadsComponent} from './downloads/downloads.component';
+import {MatIconModule} from '@angular/material';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     declarations: [
@@ -26,7 +28,9 @@ import {DownloadsComponent} from './downloads/downloads.component';
     ],
     imports: [
         BrowserModule,
-        AppRoutingModule
+        AppRoutingModule,
+        MatIconModule,
+        HttpClientModule
     ],
     providers: [],
     bootstrap: [AppComponent]
