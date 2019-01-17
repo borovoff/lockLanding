@@ -28,36 +28,41 @@ export class ThreejsComponent implements AfterViewInit {
     currentSubFolder;
     loader;
     i;
+    textureLoader;
+    urls;
+    background;
+    arcModel;
+    arcParts;
 
     folders = [
-            // new Folder('arc',
-            //     new Moving(new Vector3(0, - 0.008, 0.01), new Euler(0, - Math.PI * 0.5)),
-            //     new Vector3(0, 0.05)),
-            // new Folder('body'),
-            // new Folder('rama'),
-            // new Folder('motherBody'),
-        // new Folder('long', new Moving(new Vector3(0.008, 0.0075 + 0.008, 0.02), new Euler(Math.PI * 0.5, 0, Math.PI * 0.5))),
-        // new Folder('short', new Moving(new Vector3(- 0.008, 0.0075, 0.1), new Euler(- Math.PI * 0.5, 0, - Math.PI * 0.5))),
-            // new Folder('stopper'),
-            // new Folder('battery'),
-            // new Folder('bluetooth'),
-            // new Folder('button'),
-            // new Folder('capWithQR'),
-            new Folder('GBA_LE.gltf', new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5))),
-            // new Folder('gsm'),
-            // new Folder('servo'),
-            // new Folder('accumHolder'),
-            // new Folder('antennaCap'),
-            // new Folder('antennaTorez', new Moving(new Vector3(0, 0, - 0.003), new Euler(0, Math.PI, 0))),
-            // new Folder('buttonRing'),
-            // new Folder('buttonTorez', new Moving(new Vector3(0, 0, 0.1595), new Euler(0, Math.PI, 0))),
-            // new Folder('doubleGask'),
-            // new Folder('motherBodyHolder'),
-            // new Folder('singleGask'),
+             new Folder('arcAsm',new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5))),//,new Vector3(0, 0.05)
+             new Folder('bodyAsm',new Moving(new Vector3(0, 0, -0.030), new Euler(0, 0))),
+             new Folder('ramaAsm',new Moving(new Vector3(-0.030, 0, 0), new Euler(0, 0))),
+             new Folder('long', new Moving(new Vector3(0.008, 0.0075 + 0.008, 0.02), new Euler(Math.PI * 0.5, 0, Math.PI * 0.5))),
+             new Folder('short', new Moving(new Vector3(- 0.008, 0.0075, 0.1-0.002), new Euler(- Math.PI * 0.5, 0, - Math.PI * 0.5))),
+             new Folder('stopperAsm', new Moving(new Vector3(-0.013, 0.0075 + 0.008, 0.1-0.0182), new Euler( Math.PI * 0.5, 0, 0))),
+             new Folder('servo', new Moving(new Vector3(0, -0.016, 0.1-0.006), new Euler( 0, Math.PI, 0))),
+             new Folder('pcb', new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5))),
+             new Folder('accumHolder',new Moving(new Vector3(0, 0, 0.022), new Euler( 0, 0, Math.PI ))),
+             new Folder('battery',new Moving(new Vector3(0, -0.0093, 0.027), new Euler( -Math.PI*0.5, 0, Math.PI ))),
+             new Folder('antennaTorez', new Moving(new Vector3(0, 0, - 0.003), new Euler(0, Math.PI, Math.PI*0.5))),
+             new Folder('bluetooth', new Moving(new Vector3(0.022, 0.000, - 0.007), new Euler(0, Math.PI, -Math.PI*0.194))),
+             new Folder('gsm', new Moving(new Vector3(-0.017, 0.001, - 0.006), new Euler(0, Math.PI, -Math.PI*0.194))),
+             new Folder('capAsm', new Moving(new Vector3(0, 0.000, -0.0165), new Euler(0, Math.PI, 0))),
+             new Folder('buttonTorez', new Moving(new Vector3(0, 0, 0.1595+0.001), new Euler(0, Math.PI, 0))),
+            
+            
+            
     ];
 
     constructor() {
+        this.urls = [ 'posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg' ];
+        this.textureLoader = new THREE.CubeTextureLoader().setPath( 'assets/textures/cube/Bridge2/' );
+        this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
+        //this.scene.background = this.background;
+        var axesHelper = new THREE.AxesHelper( 5 );
+        this.scene.add( axesHelper );
         const light = new THREE.PointLight(0xffffff, 3, 1000);
         light.position.set(100, 100, 100);
         this.scene.add(light);
@@ -89,6 +94,56 @@ export class ThreejsComponent implements AfterViewInit {
 
         console.log(gltf);
 
+
+        const bc = this.textureLoader.load( this.urls ); 
+        
+        if (this.i===0){
+            this.arcModel = gltf.scene.children[ 0 ];
+            
+            
+             
+            this.arcModel.traverse( function ( child ) {
+
+                if ( child.isMesh ) {
+                    child.material.envMap = bc;
+                    //child.material.envMap = this.background;// -- this syntax not work!
+                }
+
+            } );
+            this.arcParts = {
+                cover: [],
+                arc: [],
+                arcMother1: [],
+                arcMother2: [],
+            };
+            
+            this.arcParts.cover.push( this.arcModel.getObjectByName( 'arcPlasticCover' ) );
+            this.arcParts.arc.push( this.arcModel.getObjectByName( 'Body2' ) );// TODO - change arc name to 'arc' in fusion
+            this.arcParts.arcMother1.push( this.arcModel.getObjectByName( 'arcMother1' ) );
+            this.arcParts.arcMother2.push( this.arcModel.getObjectByName( 'arcMother2' ) );
+
+            this.arcParts.cover.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.5, envMap: bc, name: 'mirror' } ) } );
+            this.arcParts.arc.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'mirror' } ) } );
+            this.arcParts.arcMother1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'mirror' } ) } );
+            this.arcParts.arcMother2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'mirror' } ) } );
+            
+        }
+        
+        if(this.i===14){
+            const buttonTorezModel = gltf.scene; 
+            buttonTorezModel.traverse( function ( child ) {
+
+                if ( child.isMesh ) {
+                    child.material.envMap = bc;
+                    child.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'mirror' } );
+                    //child.material.envMap = this.background;// -- this syntax not work!
+                }
+
+            } );
+        }
+        
+
+        
         this.scenes.push(new SceneAnimation(gltf.scene, folder.animation === null ? null : folder.animation));
         this.scene.add(gltf.scene);
         this.renderer.render(this.scene, this.camera);
@@ -102,7 +157,7 @@ export class ThreejsComponent implements AfterViewInit {
     load() {
         this.loader = new THREE.GLTFLoader();
         const folder = this.folders[this.i].name;
-        const fullPath = this.path + folder + '_out/' + folder + '.gltf';
+        const fullPath = this.path + folder + '.glb';
         this.loader.load(fullPath, this.loadingCompleted);
     }
 
@@ -162,18 +217,34 @@ export class ThreejsComponent implements AfterViewInit {
             }
 
         }
-        // if (this.scenes[1].position.y < 0.05) {
-        //     this.scenes[1].position.y += 0.0005;
-        //     window.requestAnimationFrame(() => this.expand());
-        // } else if (this.scenes[2].position.z > -0.1) {
-        //     this.scenes[2].position.z -= 0.0005;
-        //     this.scenes[0].position.z += 0.0005;
-        //     window.requestAnimationFrame(() => this.expand());
-        // }
+        if (this.scenes[0].scene.position.y <= 0.05) {
+            this.scenes[0].scene.position.y += 0.0005;
+            window.requestAnimationFrame(() => this.expand());
+        } 
+        if(this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200){
+            this.scenes[1].scene.position.z += 0.0005;
+            this.scenes[14].scene.position.z += 0.0005;
+            window.requestAnimationFrame(() => this.expand());
+        }
+        if(this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1){
+            this.scenes[8].scene.position.y -= 0.0005;
+            this.scenes[9].scene.position.y -= 0.0005;
+            window.requestAnimationFrame(() => this.expand());           
+        }
+        
+        if(this.scenes[9].scene.position.y >= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
+            this.scenes[7].scene.position.y -= 0.0005;
+            window.requestAnimationFrame(() => this.expand());
+        }
     }
 
     animate() {
+        
         window.requestAnimationFrame(() => this.animate());
+        //requestAnimationFrame( animate );
+
+        
+        
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
     }
