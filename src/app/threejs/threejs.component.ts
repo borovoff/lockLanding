@@ -96,7 +96,7 @@ export class ThreejsComponent implements AfterViewInit {
 
 
         const bc = this.textureLoader.load( this.urls ); 
-        
+        //add ARC
         if (this.i===0){
             this.arcModel = gltf.scene.children[ 0 ];
             
