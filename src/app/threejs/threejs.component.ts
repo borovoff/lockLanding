@@ -194,48 +194,50 @@ export class ThreejsComponent implements AfterViewInit {
     }
 
     expand() {
+        const delta = 0.003;
         for (let j = 0; j < this.scenes.length; j++) {
             const sceneAnimation = this.scenes[j];
             const anima = sceneAnimation.animation;
             const scene = sceneAnimation.scene;
 
-            if (anima !== null) {
-                if (anima.x !== 0) {
-                    this.scenes[j].scene.position.x += 0.0005;
-                    window.requestAnimationFrame(() => this.expand());
-                }
+            //if (anima !== null) {
+            //    if (anima.x !== 0) {
+            //        this.scenes[j].scene.position.x += delta;
+            //        window.requestAnimationFrame(() => this.expand());
+            //    }
 
-                if (anima.y !== 0 && this.scenes[j].scene.position.y < anima.y) {
-                    this.scenes[j].scene.position.y += 0.0005;
-                    window.requestAnimationFrame(() => this.expand());
-                }
+            //    if (anima.y !== 0 && this.scenes[j].scene.position.y < anima.y) {
+            //        this.scenes[j].scene.position.y += delta;
+            //        window.requestAnimationFrame(() => this.expand());
+            //    }
 
-                if (anima.z !== 0) {
-                    this.scenes[j].scene.position.z += 0.0005;
-                    window.requestAnimationFrame(() => this.expand());
-                }
-            }
+            //    if (anima.z !== 0) {
+            //        this.scenes[j].scene.position.z += delta;
+            //        window.requestAnimationFrame(() => this.expand());
+            //    }
+            //}
 
         }
         if (this.scenes[0].scene.position.y <= 0.05) {
-            this.scenes[0].scene.position.y += 0.0005;
-            window.requestAnimationFrame(() => this.expand());
+            this.scenes[0].scene.position.y += delta;
+            //window.requestAnimationFrame(() => this.expand());
         } 
         if(this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200){
-            this.scenes[1].scene.position.z += 0.0005;
-            this.scenes[14].scene.position.z += 0.0005;
-            window.requestAnimationFrame(() => this.expand());
+            this.scenes[1].scene.position.z += 2*delta;
+            this.scenes[14].scene.position.z += 2*delta;
+            //window.requestAnimationFrame(() => this.expand());
         }
         if(this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1){
-            this.scenes[8].scene.position.y -= 0.0005;
-            this.scenes[9].scene.position.y -= 0.0005;
-            window.requestAnimationFrame(() => this.expand());           
+            this.scenes[8].scene.position.y -= delta;
+            this.scenes[9].scene.position.y -= delta;
+            //window.requestAnimationFrame(() => this.expand());           
         }
         
-        if(this.scenes[9].scene.position.y >= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
-            this.scenes[7].scene.position.y -= 0.0005;
-            window.requestAnimationFrame(() => this.expand());
+        if(this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
+            this.scenes[7].scene.position.y -= delta;
+            //window.requestAnimationFrame(() => this.expand());
         }
+        window.requestAnimationFrame(() => this.expand());
     }
 
     animate() {
