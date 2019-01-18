@@ -11,7 +11,7 @@ export class NavbarComponent {
     items = [
         {name: 'Блог', link: '/blog'},
         {name: 'Связь', link: '/contact'},
-        {name: 'О замке', link: '/lock'},
+        {name: 'Замок', link: '/lock'},
         {name: 'Загрузки', link: '/downloads'},
         {name: 'Предзаказ', link: '/order'}
     ];
