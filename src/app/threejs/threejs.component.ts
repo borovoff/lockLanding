@@ -510,7 +510,7 @@ export class ThreejsComponent implements AfterViewInit {
                     if (node.material.lightMap)     node.material.lightMap.dispose ();
                     if (node.material.bumpMap)      node.material.bumpMap.dispose ();
                     if (node.material.normalMap)    node.material.normalMap.dispose ();
-                    if (node.material.specularMap)  node.material.specularMap.dispose ();
+                    //if (node.material.specularMap)  node.material.specularMap.dispose ();
                     if (node.material.envMap)       node.material.envMap.dispose ();
 
                     node.material.dispose ();   // disposes any programs associated with the material
@@ -566,19 +566,22 @@ export class ThreejsComponent implements AfterViewInit {
         } 
         if(this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200){
             this.scenes[1].scene.position.z += 2*delta;
-            this.scenes[14].scene.position.z += 2*delta;
+            this.scenes[14].scene.position.z += 2.1*delta;
             
         }
         if(this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1){
             this.scenes[8].scene.position.y -= delta;
             this.scenes[9].scene.position.y -= delta;
+            this.scenes[6].scene.position.y -= 0.5*delta;
+            this.scenes[7].scene.position.y -= 0.4*delta;
+            this.scenes[13].scene.position.z -= delta;
                       
         }
         
         if(this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
-            this.scenes[6].scene.position.y -= delta;
-            this.scenes[7].scene.position.y -= delta;
-            this.scenes[13].scene.position.z -= delta;
+            //this.scenes[6].scene.position.y -= delta;
+            //this.scenes[7].scene.position.y -= delta;
+            //this.scenes[13].scene.position.z -= delta;
             
         }
         window.requestAnimationFrame(() => this.expand());
