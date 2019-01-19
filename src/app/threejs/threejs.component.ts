@@ -81,7 +81,7 @@ export class ThreejsComponent implements AfterViewInit {
         this.camera.position.z = 10;
         this.camera.position.x = 10;
         this.camera.position.y = 5;
-        this.camera.lookAt(100,100,10);
+        
         
         
         
@@ -377,6 +377,7 @@ export class ThreejsComponent implements AfterViewInit {
                 }
 
             } );
+            
         }
         
         if(this.i===13){
@@ -454,9 +455,84 @@ export class ThreejsComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
+        
         this.setView();
         this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
         this.animate();
+    }
+    
+    ngOnDestroy(){
+        
+        
+        console.log('destroy');
+        //Following to CPU measuremebts in Chrome cpu is released by deleting scenes. But on forums they say that it's neccecary to remove all objects
+        //TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
+        
+        for( let i=0; i < this.scenes.length; i++){
+            while(this.scenes[i].scene.children.length > 0){ 
+                this.scenes[i].scene.remove(this.scenes[i].scene.children[0]); 
+            }
+           
+        }
+        /*arcModel;
+        arcParts;
+        ramaModel;
+        ramaParts;
+        bodyModel;
+        bodyParts;
+        stopperModel;
+        stopperParts;
+        capModel;
+        capParts;*/
+        //this.disposeHierarchy(this.ramaModel,this.disposeNode);
+        //this.disposeHierarchy(this.bodyModel,this.disposeNode);
+        //this.disposeHierarchy(this.arcModel,this.disposeNode);
+        //this.arcParts=[];
+
+    }
+    
+    disposeNode (node)
+    {
+        if (node instanceof THREE.Mesh)
+        {
+            if (node.geometry)
+            {
+                node.geometry.dispose ();
+                
+            }
+
+            if (node.material)
+            {
+                if (node.material instanceof THREE.MeshStandardMaterial)
+                {
+                    
+                    if (node.material.map)          node.material.map.dispose ();
+                    if (node.material.lightMap)     node.material.lightMap.dispose ();
+                    if (node.material.bumpMap)      node.material.bumpMap.dispose ();
+                    if (node.material.normalMap)    node.material.normalMap.dispose ();
+                    if (node.material.specularMap)  node.material.specularMap.dispose ();
+                    if (node.material.envMap)       node.material.envMap.dispose ();
+
+                    node.material.dispose ();   // disposes any programs associated with the material
+                    
+                    console.log('destroy');
+                
+                }
+                    
+
+            }
+        }
+    }   // disposeNode
+
+    disposeHierarchy (node, callback)
+    {
+        for (var i = node.children.length - 1; i >= 0; i--)
+        {
+            var child = node.children[i];
+            this.disposeHierarchy (child, callback);
+            callback (child);
+            
+        }
     }
 
     @HostListener('window:resize', ['$event'])
@@ -483,49 +559,27 @@ export class ThreejsComponent implements AfterViewInit {
 
     expand() {
         const delta = 0.003;
-        for (let j = 0; j < this.scenes.length; j++) {
-            const sceneAnimation = this.scenes[j];
-            const anima = sceneAnimation.animation;
-            const scene = sceneAnimation.scene;
-
-            //if (anima !== null) {
-            //    if (anima.x !== 0) {
-            //        this.scenes[j].scene.position.x += delta;
-            //        window.requestAnimationFrame(() => this.expand());
-            //    }
-
-            //    if (anima.y !== 0 && this.scenes[j].scene.position.y < anima.y) {
-            //        this.scenes[j].scene.position.y += delta;
-            //        window.requestAnimationFrame(() => this.expand());
-            //    }
-
-            //    if (anima.z !== 0) {
-            //        this.scenes[j].scene.position.z += delta;
-            //        window.requestAnimationFrame(() => this.expand());
-            //    }
-            //}
-
-        }
+        
         if (this.scenes[0].scene.position.y <= 0.05) {
             this.scenes[0].scene.position.y += delta;
-            //window.requestAnimationFrame(() => this.expand());
+            
         } 
         if(this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200){
             this.scenes[1].scene.position.z += 2*delta;
             this.scenes[14].scene.position.z += 2*delta;
-            //window.requestAnimationFrame(() => this.expand());
+            
         }
         if(this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1){
             this.scenes[8].scene.position.y -= delta;
             this.scenes[9].scene.position.y -= delta;
-            //window.requestAnimationFrame(() => this.expand());           
+                      
         }
         
         if(this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
             this.scenes[6].scene.position.y -= delta;
             this.scenes[7].scene.position.y -= delta;
             this.scenes[13].scene.position.z -= delta;
-            //window.requestAnimationFrame(() => this.expand());
+            
         }
         window.requestAnimationFrame(() => this.expand());
     }
@@ -539,6 +593,7 @@ export class ThreejsComponent implements AfterViewInit {
         
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
+        
     }
 }
 

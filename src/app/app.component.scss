@@ -25,11 +25,12 @@ $pixel-width: 4625;
         position: absolute;
     }
 
-    /*iframe {
+    iframe {
         position: absolute;
+        
         top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        left: 50%; 
+        transform: translate(-50%,-50%);
 
         min-height: 100%;
         max-width: 100%;
@@ -37,23 +38,27 @@ $pixel-width: 4625;
 
         width: $percent-height * $pixel-width/$pixel-height * 100vh;
         height: $percent-height * $pixel-height/$pixel-width * 100vw;
-    }*/
+    }
     
-    .video-container {
+    /*.video-container {
         position: relative;
         padding-bottom: 56.25%;
-        padding-top: 30px; height: 0; overflow: hidden;
+        padding-top: 30px;
+        height: 0;
+        overflow: hidden;
+
     }
 
-    .video-container iframe,
-    .video-container object,
-    .video-container embed {
+    .video-container iframe {
         position: absolute;
         top: 5%;
         left: 25%;
         width: 50%;
         height: 50%;
-    }
+        min-height: 50%;
+    }*/
+    
+
     
 
     app-threejs {
@@ -70,6 +75,8 @@ $pixel-width: 4625;
         height: $percent-height * $pixel-height/$pixel-width * 100vw;
     }
 }
+
+
 
 
 
