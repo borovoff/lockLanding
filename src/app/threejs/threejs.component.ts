@@ -1,4 +1,4 @@
-import {Component, ViewChild, ElementRef, AfterViewInit, HostListener} from '@angular/core';
+import {Component, ViewChild, ElementRef, AfterViewInit, HostListener, OnDestroy} from '@angular/core';
 import * as THREE from 'three';
 import './js/EnableThreeExamples';
 import 'three/examples/js/loaders/ColladaLoader';
@@ -11,7 +11,7 @@ import {Euler, GLTF, Vector3} from 'three';
     templateUrl: './threejs.component.html',
     styleUrls: ['../app.component.scss']
 })
-export class ThreejsComponent implements AfterViewInit {
+export class ThreejsComponent implements AfterViewInit, OnDestroy {
     @ViewChild('rendererContainer')
     rendererContainer: ElementRef;
 
@@ -43,24 +43,30 @@ export class ThreejsComponent implements AfterViewInit {
     capParts;
 
     folders = [
-             new Folder('arcAsm',new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5))),//,new Vector3(0, 0.05)
-             new Folder('bodyAsm',new Moving(new Vector3(0, 0, -0.030), new Euler(0, 0))),
-             new Folder('ramaAsm',new Moving(new Vector3(-0.030, 0, 0), new Euler(0, 0))),
-             new Folder('long', new Moving(new Vector3(0.008, 0.0075 + 0.008, 0.02), new Euler(Math.PI * 0.5, 0, Math.PI * 0.5))),
-             new Folder('short', new Moving(new Vector3(- 0.008, 0.0075, 0.1-0.002), new Euler(- Math.PI * 0.5, 0, - Math.PI * 0.5))),
-             new Folder('stopperAsm', new Moving(new Vector3(-0.013, 0.0075 + 0.008, 0.1-0.0182), new Euler( Math.PI * 0.5, 0, 0))),
-             new Folder('servo', new Moving(new Vector3(0, -0.016, 0.1-0.006), new Euler( 0, Math.PI, 0))),
-             new Folder('pcb', new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5))),
-             new Folder('accumHolder',new Moving(new Vector3(0, 0, 0.022), new Euler( 0, 0, Math.PI ))),
-             new Folder('battery',new Moving(new Vector3(0, -0.0093, 0.027), new Euler( -Math.PI*0.5, 0, Math.PI ))),
-             new Folder('antennaTorez', new Moving(new Vector3(0, 0, - 0.003), new Euler(0, Math.PI, Math.PI*0.5))),
-             new Folder('bluetooth', new Moving(new Vector3(0.022, 0.000, - 0.007), new Euler(0, Math.PI, -Math.PI*0.194))),
-             new Folder('gsm', new Moving(new Vector3(-0.017, 0.001, - 0.006), new Euler(0, Math.PI, -Math.PI*0.194))),
-             new Folder('capAsm', new Moving(new Vector3(0, 0.000, -0.0165), new Euler(0, Math.PI, 0))),
-             new Folder('buttonTorez', new Moving(new Vector3(0, 0, 0.1595+0.001), new Euler(0, Math.PI, 0))),
-            
-            
-            
+         new Folder('arcAsm',
+             new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
+                 new Visual('arcPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.5, envMap: null, name: 'cover'})),
+                 new Visual('Body2', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
+                 new Visual('arcMother1', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                 new Visual('arcMother2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                 new Visual('arcMotherHolder1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+                 new Visual('arcMotherHolder2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+             ]
+         ),
+         new Folder('bodyAsm', new Moving(new Vector3(0, 0, -0.030), new Euler(0, 0))),
+         new Folder('ramaAsm', new Moving(new Vector3(-0.030, 0, 0), new Euler(0, 0))),
+         new Folder('long', new Moving(new Vector3(0.008, 0.0075 + 0.008, 0.02), new Euler(Math.PI * 0.5, 0, Math.PI * 0.5))),
+         new Folder('short', new Moving(new Vector3(- 0.008, 0.0075, 0.1 - 0.002), new Euler(- Math.PI * 0.5, 0, - Math.PI * 0.5))),
+         new Folder('stopperAsm', new Moving(new Vector3(-0.013, 0.0075 + 0.008, 0.1 - 0.0182), new Euler( Math.PI * 0.5, 0, 0))),
+         new Folder('servo', new Moving(new Vector3(0, -0.016, 0.1 - 0.006), new Euler( 0, Math.PI, 0))),
+         new Folder('pcb', new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5))),
+         new Folder('accumHolder', new Moving(new Vector3(0, 0, 0.022), new Euler( 0, 0, Math.PI ))),
+         new Folder('battery', new Moving(new Vector3(0, -0.0093, 0.027), new Euler( -Math.PI * 0.5, 0, Math.PI ))),
+         new Folder('antennaTorez', new Moving(new Vector3(0, 0, - 0.003), new Euler(0, Math.PI, Math.PI * 0.5))),
+         new Folder('bluetooth', new Moving(new Vector3(0.022, 0.000, - 0.007), new Euler(0, Math.PI, -Math.PI * 0.194))),
+         new Folder('gsm', new Moving(new Vector3(-0.017, 0.001, - 0.006), new Euler(0, Math.PI, -Math.PI * 0.194))),
+         new Folder('capAsm', new Moving(new Vector3(0, 0.000, -0.0165), new Euler(0, Math.PI, 0))),
+         new Folder('buttonTorez', new Moving(new Vector3(0, 0, 0.1595 + 0.001), new Euler(0, Math.PI, 0))),
     ];
 
     constructor() {
@@ -68,36 +74,23 @@ export class ThreejsComponent implements AfterViewInit {
         this.textureLoader = new THREE.CubeTextureLoader().setPath( 'assets/textures/cube/Bridge2/' );
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
-        //this.scene.background = this.background;
-        //var axesHelper = new THREE.AxesHelper( 5 );
-        //this.scene.add( axesHelper );
+        // this.scene.background = this.background;
+        // var axesHelper = new THREE.AxesHelper( 5 );
+        // this.scene.add( axesHelper );
         const light = new THREE.PointLight(0xffffff, 3, 1000);
         light.position.set(100, 100, 100);
         this.scene.add(light);
         this.scene.add( new THREE.AmbientLight( 0x404040 ) );
 
         this.camera = new THREE.PerspectiveCamera(1, window.innerWidth / window.innerHeight, 1, 10000);
-        
+
         this.camera.position.z = 10;
         this.camera.position.x = 10;
         this.camera.position.y = 5;
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         console.log(this.camera.position);
+
         this.loadingCompleted = this.loadingCompleted.bind(this);
-        
-
-
-        
-
         this.i = 0;
         this.load();
 
@@ -105,12 +98,9 @@ export class ThreejsComponent implements AfterViewInit {
         this.controls.center.z = 0.07;
         this.controls.center.y = 0.08;
         this.controls.update();
-        
-        
     }
 
-    loadingCompleted(gltf: GLTF) {
-
+    loadingCompleted(gltf) {
         const folder = this.folders[this.i];
         const moving = this.folders[this.i].moving;
         if (moving !== null) {
@@ -122,58 +112,54 @@ export class ThreejsComponent implements AfterViewInit {
 
         console.log(gltf);
 
+        const bc = this.textureLoader.load( this.urls );
+        // add ARC
+        if (this.i === 0) {
+            // const children = gltf.scene.children[0];
+            // children.traverse( function ( child ) {
+            //     if ( child.isMesh ) {
+            //         child.material.envMap = bc;
+            //         // child.material.envMap = this.background;// -- this syntax not work!
+            //     }
+            // } );
 
-        const bc = this.textureLoader.load( this.urls ); 
-        //add ARC
-        if (this.i===0){
-            this.arcModel = gltf.scene.children[ 0 ];
-            
-            
-             
-            this.arcModel.traverse( function ( child ) {
+            for (let i = 0; i < folder.visuals.length; i++) {
+                const material = folder.visuals[i].material;
+                material.envMap = bc;
+                gltf.scene.children[0].getObjectByName(folder.visuals[i].name).material = material;
+            }
 
-                if ( child.isMesh ) {
-                    child.material.envMap = bc;
-                    //child.material.envMap = this.background;// -- this syntax not work!
-                }
-
-            } );
-            this.arcParts = {
-                cover: [],
-                arc: [],
-                arcMother1: [],
-                arcMother2: [],
-                arcMotherHolder1: [],
-                arcMotherHolder2: [],
-            };
-            
-            this.arcParts.cover.push( this.arcModel.getObjectByName( 'arcPlasticCover' ) );
-            this.arcParts.arc.push( this.arcModel.getObjectByName( 'Body2' ) );// TODO - change arc name to 'arc' in fusion
-            this.arcParts.arcMother1.push( this.arcModel.getObjectByName( 'arcMother1' ) );
-            this.arcParts.arcMother2.push( this.arcModel.getObjectByName( 'arcMother2' ) );
-            this.arcParts.arcMotherHolder1.push( this.arcModel.getObjectByName( 'arcMotherHolder1' ) );
-            this.arcParts.arcMotherHolder2.push( this.arcModel.getObjectByName( 'arcMotherHolder2' ) );
-
-            this.arcParts.cover.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.5, envMap: bc, name: 'cover' } ) } );
-            this.arcParts.arc.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.arcParts.arcMother1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ) } );
-            this.arcParts.arcMother2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ) } );
-            this.arcParts.arcMotherHolder1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.arcParts.arcMotherHolder2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            
-            
+            // this.arcParts = {
+            //     cover: [],
+            //     arc: [],
+            //     arcMother1: [],
+            //     arcMother2: [],
+            //     arcMotherHolder1: [],
+            //     arcMotherHolder2: [],
+            // };
+            //
+            // this.arcParts.cover.push( this.arcModel.getObjectByName( 'arcPlasticCover' ) );
+            // this.arcParts.arc.push( this.arcModel.getObjectByName( 'Body2' ) ); // TODO - change arc name to 'arc' in fusion
+            // this.arcParts.arcMother1.push( this.arcModel.getObjectByName( 'arcMother1' ) );
+            // this.arcParts.arcMother2.push( this.arcModel.getObjectByName( 'arcMother2' ) );
+            // this.arcParts.arcMotherHolder1.push( this.arcModel.getObjectByName( 'arcMotherHolder1' ) );
+            // this.arcParts.arcMotherHolder2.push( this.arcModel.getObjectByName( 'arcMotherHolder2' ) );
+            //
+            // this.arcParts.cover.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.5, envMap: bc, name: 'cover' } ); } );
+            // this.arcParts.arc.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            // this.arcParts.arcMother1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ); } );
+            // this.arcParts.arcMother2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ); } );
+            // this.arcParts.arcMotherHolder1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            // this.arcParts.arcMotherHolder2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
         }
-        //add BODY
-        if(this.i === 1){
+        // add BODY
+        if (this.i === 1) {
             this.bodyModel = gltf.scene.children[ 0 ];
-            
-            
-             
             this.bodyModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
 
             } );
@@ -185,7 +171,7 @@ export class ThreejsComponent implements AfterViewInit {
                 bodyMotherHolder1: [],
                 bodyMotherHolder2: [],
             };
-            
+
             this.bodyParts.bodyPlasticCover.push( this.bodyModel.getObjectByName( 'bodyPlasticCover' ) );
             this.bodyParts.body.push( this.bodyModel.getObjectByName( 'body' ) );
             this.bodyParts.bodyMother1.push( this.bodyModel.getObjectByName( 'bodyMother1' ) );
@@ -193,26 +179,23 @@ export class ThreejsComponent implements AfterViewInit {
             this.bodyParts.bodyMotherHolder1.push( this.bodyModel.getObjectByName( 'bodyMotherHolder1' ) );
             this.bodyParts.bodyMotherHolder2.push( this.bodyModel.getObjectByName( 'bodyMotherHolder2' ) );
 
-            this.bodyParts.bodyPlasticCover.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.5, envMap: bc, name: 'cover' } ) } );
-            this.bodyParts.body.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.bodyParts.bodyMother1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ) } );
-            this.bodyParts.bodyMother2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ) } );
-            this.bodyParts.bodyMotherHolder1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.bodyParts.bodyMotherHolder2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
+            this.bodyParts.bodyPlasticCover.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.5, envMap: bc, name: 'cover' } ); } );
+            this.bodyParts.body.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.bodyParts.bodyMother1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ); } );
+            this.bodyParts.bodyMother2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: bc, name: 'brass' } ); } );
+            this.bodyParts.bodyMotherHolder1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.bodyParts.bodyMotherHolder2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
         }
-        
-        //add RAMA
-        
-        if(this.i===2){
+
+        // add RAMA
+
+        if (this.i === 2) {
             this.ramaModel = gltf.scene.children[ 0 ];
-            
-            
-             
             this.ramaModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
 
             } );
@@ -237,9 +220,9 @@ export class ThreejsComponent implements AfterViewInit {
                 bodyFatherBody1: [],
                 bodyFatherBall1: [],
                 bodyFatherBody2: [],
-                bodyFatherBall2: [],                
+                bodyFatherBall2: [],
             };
-            
+
             this.ramaParts.buttonOuterMetal.push( this.ramaModel.getObjectByName( 'buttonOuterMetal' ) );
             this.ramaParts.buttonLed.push( this.ramaModel.getObjectByName( 'buttonLed' ) );
             this.ramaParts.buttonInnerMetal.push( this.ramaModel.getObjectByName( 'buttonInnerMetal' ) );
@@ -262,136 +245,121 @@ export class ThreejsComponent implements AfterViewInit {
             this.ramaParts.bodyFatherBody2.push( this.ramaModel.getObjectByName( 'bodyFatherBody2' ) );
             this.ramaParts.bodyFatherBall2.push( this.ramaModel.getObjectByName( 'bodyFatherBall2' ) );
 
-
-            this.ramaParts.buttonOuterMetal.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.buttonLed.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ) } );
-            this.ramaParts.buttonInnerMetal.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.buttonRing.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.ramaParts.rama.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.5, envMap: bc, name: 'aluminium' } ) } );
-            this.ramaParts.double1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.ramaParts.double2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.ramaParts.single1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.ramaParts.single2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.ramaParts.arcFatherBody1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBall1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBody2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBall2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBody3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBall3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBody4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.arcFatherBall4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.bodyFatherBody1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.bodyFatherBall1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.bodyFatherBody2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.ramaParts.bodyFatherBall2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-
-
+            this.ramaParts.buttonOuterMetal.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.buttonLed.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ); } );
+            this.ramaParts.buttonInnerMetal.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.buttonRing.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.ramaParts.rama.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.5, envMap: bc, name: 'aluminium' } ); } );
+            this.ramaParts.double1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.ramaParts.double2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.ramaParts.single1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.ramaParts.single2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.ramaParts.arcFatherBody1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBall1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBody2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBall2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBody3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBall3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBody4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.arcFatherBall4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.bodyFatherBody1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.bodyFatherBall1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.bodyFatherBody2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.ramaParts.bodyFatherBall2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
         }
-        
+
         // add LONG
-        if(this.i===3){
-            const longModel = gltf.scene; 
+        if (this.i === 3) {
+            const longModel = gltf.scene;
             longModel.traverse( function ( child ) {
-
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
 
             } );
-        }  
-        
+        }
+
         // add SHORT
-        if(this.i===4){
-            const longModel = gltf.scene; 
+        if (this.i === 4) {
+            const longModel = gltf.scene;
             longModel.traverse( function ( child ) {
-
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
 
             } );
-        } 
-        // add STOPPER  
-        if(this.i===5){
+        }
+        // add STOPPER
+        if (this.i === 5) {
             this.stopperModel = gltf.scene.children[ 0 ];
-            
-            
-             
             this.stopperModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
-
             } );
             this.stopperParts = {
                 stopper: [],
                 shaftSleeve: [],
             };
-            
+
             this.stopperParts.stopper.push( this.stopperModel.getObjectByName( 'stopper' ) );
             this.stopperParts.shaftSleeve.push( this.stopperModel.getObjectByName( 'shaftSleeve' ) );
 
-
-            this.stopperParts.stopper.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ) } );
-            this.stopperParts.shaftSleeve.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-        }              
+            this.stopperParts.stopper.forEach( function ( part ) {
+                part.material = new THREE.MeshStandardMaterial( {
+                    color: 0xffffff, metalness: 1, roughness: 0.2, envMap: bc, name: 'steel' } ); } );
+            this.stopperParts.shaftSleeve.forEach( function ( part ) {
+                part.material = new THREE.MeshStandardMaterial( {
+                    color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+        }
         // add ACCUMHOLDER
-        if(this.i===8){
-            const accumHolderModel = gltf.scene; 
+        if (this.i === 8) {
+            const accumHolderModel = gltf.scene;
             accumHolderModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
 
             } );
         }
-                if(this.i===8){
-            const accumHolderModel = gltf.scene; 
+        if (this.i === 8) {
+            const accumHolderModel = gltf.scene;
             accumHolderModel.traverse( function ( child ) {
-
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
-
             } );
-        }          
-        if(this.i===10){
-            const antennaTorezModel = gltf.scene; 
+        }
+        if (this.i === 10) {
+            const antennaTorezModel = gltf.scene;
             antennaTorezModel.traverse( function ( child ) {
-
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
-
             } );
-            
         }
-        
-        if(this.i===13){
+
+        if (this.i === 13) {
             this.capModel = gltf.scene.children[ 0 ];
-            
-            
-             
             this.capModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
-
             } );
             this.capParts = {
                 cap: [],
@@ -401,7 +369,7 @@ export class ThreejsComponent implements AfterViewInit {
                 QR3: [],
                 QR4: [],
             };
-            
+
             this.capParts.cap.push( this.capModel.getObjectByName( 'cap' ) );
             this.capParts.QR0.push( this.capModel.getObjectByName( 'QR0' ) );
             this.capParts.QR1.push( this.capModel.getObjectByName( 'QR1' ) );
@@ -409,33 +377,29 @@ export class ThreejsComponent implements AfterViewInit {
             this.capParts.QR3.push( this.capModel.getObjectByName( 'QR3' ) );
             this.capParts.QR4.push( this.capModel.getObjectByName( 'QR4' ) );
 
+            this.capParts.cap.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.capParts.QR0.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ); } );
+            this.capParts.QR1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ); } );
+            this.capParts.QR2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ); } );
+            this.capParts.QR3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ); } );
+            this.capParts.QR4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ); } );
+        }
 
-            this.capParts.cap.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.capParts.QR0.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } ) } );
-            this.capParts.QR1.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ) } );
-            this.capParts.QR2.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ) } );
-            this.capParts.QR3.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ) } );
-            this.capParts.QR4.forEach( function ( part ) { part.material = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.2, envMap: bc, name: 'white abs' } ) } );
-        }              
-        
-        if(this.i===14){
-            const antennaTorezModel = gltf.scene; 
+        if (this.i === 14) {
+            const antennaTorezModel = gltf.scene;
             antennaTorezModel.traverse( function ( child ) {
 
                 if ( child.isMesh ) {
                     child.material.envMap = bc;
                     child.material = new THREE.MeshStandardMaterial( { color: 0x000000, metalness: 0, roughness: 0.2, envMap: bc, name: 'black abs' } );
-                    //child.material.envMap = this.background;// -- this syntax not work!
+                    // child.material.envMap = this.background;// -- this syntax not work!
                 }
-
             } );
         }
-        
 
-        
         this.scenes.push(new SceneAnimation(gltf.scene, folder.animation === null ? null : folder.animation));
         this.scene.add(gltf.scene);
-        this.renderer.render(this.scene, this.camera);
+        // this.renderer.render(this.scene, this.camera);
 
         this.i++;
         if (this.i < this.folders.length) {
@@ -455,24 +419,22 @@ export class ThreejsComponent implements AfterViewInit {
     }
 
     ngAfterViewInit() {
-        
         this.setView();
         this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
         this.animate();
     }
-    
-    ngOnDestroy(){
-        
-        
+
+    ngOnDestroy() {
         console.log('destroy');
-        //Following to CPU measuremebts in Chrome cpu is released by deleting scenes. But on forums they say that it's neccecary to remove all objects
-        //TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
-        
-        for( let i=0; i < this.scenes.length; i++){
-            while(this.scenes[i].scene.children.length > 0){ 
-                this.scenes[i].scene.remove(this.scenes[i].scene.children[0]); 
+        // Following to CPU measuremebts in Chrome cpu is released by deleting scenes. But on forums they say that it's neccecary to remove
+        // all objects
+        // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
+
+        for ( let i = 0; i < this.scenes.length; i++) {
+            while (this.scenes[i].scene.children.length > 0) {
+                this.scenes[i].scene.remove(this.scenes[i].scene.children[0]);
             }
-           
+
         }
         /*arcModel;
         arcParts;
@@ -484,54 +446,47 @@ export class ThreejsComponent implements AfterViewInit {
         stopperParts;
         capModel;
         capParts;*/
-        //this.disposeHierarchy(this.ramaModel,this.disposeNode);
-        //this.disposeHierarchy(this.bodyModel,this.disposeNode);
-        //this.disposeHierarchy(this.arcModel,this.disposeNode);
-        //this.arcParts=[];
+        // this.disposeHierarchy(this.ramaModel,this.disposeNode);
+        // this.disposeHierarchy(this.bodyModel,this.disposeNode);
+        // this.disposeHierarchy(this.arcModel,this.disposeNode);
+        // this.arcParts=[];
 
     }
-    
-    disposeNode (node)
-    {
-        if (node instanceof THREE.Mesh)
-        {
-            if (node.geometry)
-            {
+
+    disposeNode (node) {
+        if (node instanceof THREE.Mesh) {
+            if (node.geometry) {
                 node.geometry.dispose ();
-                
+
             }
 
-            if (node.material)
-            {
-                if (node.material instanceof THREE.MeshStandardMaterial)
-                {
-                    
-                    if (node.material.map)          node.material.map.dispose ();
-                    if (node.material.lightMap)     node.material.lightMap.dispose ();
-                    if (node.material.bumpMap)      node.material.bumpMap.dispose ();
-                    if (node.material.normalMap)    node.material.normalMap.dispose ();
-                    //if (node.material.specularMap)  node.material.specularMap.dispose ();
-                    if (node.material.envMap)       node.material.envMap.dispose ();
+            if (node.material) {
+                if (node.material instanceof THREE.MeshStandardMaterial) {
+
+                    if (node.material.map) {          node.material.map.dispose (); }
+                    if (node.material.lightMap) {     node.material.lightMap.dispose (); }
+                    if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
+                    if (node.material.normalMap) {    node.material.normalMap.dispose (); }
+                    // if (node.material.specularMap)  node.material.specularMap.dispose ();
+                    if (node.material.envMap) {       node.material.envMap.dispose (); }
 
                     node.material.dispose ();   // disposes any programs associated with the material
-                    
+
                     console.log('destroy');
-                
+
                 }
-                    
+
 
             }
         }
     }   // disposeNode
 
-    disposeHierarchy (node, callback)
-    {
-        for (var i = node.children.length - 1; i >= 0; i--)
-        {
-            var child = node.children[i];
+    disposeHierarchy (node, callback) {
+        for (let i = node.children.length - 1; i >= 0; i--) {
+            let child = node.children[i];
             this.disposeHierarchy (child, callback);
             callback (child);
-            
+
         }
     }
 
@@ -559,56 +514,50 @@ export class ThreejsComponent implements AfterViewInit {
 
     expand() {
         const delta = 0.003;
-        
+
         if (this.scenes[0].scene.position.y <= 0.05) {
             this.scenes[0].scene.position.y += delta;
-            
-        } 
-        if(this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200){
-            this.scenes[1].scene.position.z += 2*delta;
-            this.scenes[14].scene.position.z += 2.1*delta;
-            
         }
-        if(this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1){
+        if (this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200) {
+            this.scenes[1].scene.position.z += 2 * delta;
+            this.scenes[14].scene.position.z += 2.1 * delta;
+
+        }
+        if (this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1) {
             this.scenes[8].scene.position.y -= delta;
             this.scenes[9].scene.position.y -= delta;
-            this.scenes[6].scene.position.y -= 0.5*delta;
-            this.scenes[7].scene.position.y -= 0.4*delta;
+            this.scenes[6].scene.position.y -= 0.5 * delta;
+            this.scenes[7].scene.position.y -= 0.4 * delta;
             this.scenes[13].scene.position.z -= delta;
-                      
         }
-        
-        if(this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ){
-            //this.scenes[6].scene.position.y -= delta;
-            //this.scenes[7].scene.position.y -= delta;
-            //this.scenes[13].scene.position.z -= delta;
-            
+
+        if (this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ) {
+            // this.scenes[6].scene.position.y -= delta;
+            // this.scenes[7].scene.position.y -= delta;
+            // this.scenes[13].scene.position.z -= delta;
         }
         window.requestAnimationFrame(() => this.expand());
     }
 
     animate() {
-        
         window.requestAnimationFrame(() => this.animate());
-        //requestAnimationFrame( animate );
-
-        
-        
+        // requestAnimationFrame( animate );
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
-        
     }
 }
 
 export class Folder {
-    constructor(name: string, moving: Moving = null, animation: Vector3 = null) {
+    constructor(name: string, moving: Moving = null, visuals: Visual[] = null, animation: Vector3 = null) {
         this.name = name;
         this.moving = moving;
+        this.visuals = visuals;
         this.animation = animation;
     }
 
     name: string;
     moving: Moving;
+    visuals: Visual[];
     animation: Vector3;
 }
 
@@ -632,3 +581,12 @@ export class Moving {
     rotation: Euler;
 }
 
+export class Visual {
+    constructor(name: string, material: THREE.MeshStandardMaterial) {
+        this.name = name;
+        this.material = material;
+    }
+
+    name: string;
+    material: THREE.MeshStandardMaterial;
+}
