@@ -74,6 +74,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.textureLoader = new THREE.CubeTextureLoader().setPath( 'assets/textures/cube/Bridge2/' );
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
+
         // this.scene.background = this.background;
         // var axesHelper = new THREE.AxesHelper( 5 );
         // this.scene.add( axesHelper );
@@ -111,7 +112,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         }
 
         console.log(gltf);
-
         const bc = this.textureLoader.load( this.urls );
         // add ARC
         if (this.i === 0) {
@@ -125,7 +125,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
             for (let i = 0; i < folder.visuals.length; i++) {
                 const material = folder.visuals[i].material;
-                material.envMap = bc;
+                material.envMap = this.background;
                 gltf.scene.children[0].getObjectByName(folder.visuals[i].name).material = material;
             }
 
