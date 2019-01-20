@@ -28,7 +28,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     textureLoader;
     urls;
     background;
-
+    lightHolder;
     folders = [
          new Folder('arcAsm',
              new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
@@ -150,24 +150,22 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.scene = new THREE.Scene();
 
         //this.scene.background = new THREE.Color( 0xffffff ); 
-         var axesHelper = new THREE.AxesHelper( 5 );
-         this.scene.add( axesHelper );
+         //var axesHelper = new THREE.AxesHelper( 5 );
+         //this.scene.add( axesHelper );
          
 
         const light = new THREE.PointLight(0xffffff, 3, 1000);
-        light.position.set(100, 20, 0);
-        this.scene.add(light);
+        light.position.set(100,10,0);
+        this.lightHolder = new THREE.Group();
+        this.lightHolder.add(light);
+        this.scene.add(this.lightHolder);
         
         this.scene.add( new THREE.AmbientLight( 0xffffff ) );
 
         this.camera = new THREE.PerspectiveCamera(1, window.innerWidth / window.innerHeight, 1, 10000);
-        
-        
-
         this.camera.position.z = 10;
         this.camera.position.x = 10;
         this.camera.position.y = 5;
-
         console.log(this.camera.position);
 
         this.loadingCompleted = this.loadingCompleted.bind(this);
@@ -241,12 +239,8 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             this.scenes[j].scene.children[0].traverse( function(node) {
 
                 if (node instanceof THREE.Mesh) {
-
                     if (node.geometry) {
-
                         node.geometry.dispose ();
-
-
                     }
 
                     if (node.material) {
@@ -260,12 +254,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                             if (node.material.envMap) {       node.material.envMap.dispose (); }
 
                             node.material.dispose ();   // disposes any programs associated with the material
-
                             //console.log('destroy');
-
-
-
-
                         }
                     }
                 }
@@ -368,6 +357,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         // requestAnimationFrame( animate );
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
+        this.lightHolder.quaternion.copy(this.camera.quaternion);
     }
 }
 
