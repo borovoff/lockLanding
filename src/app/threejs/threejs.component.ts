@@ -70,7 +70,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('buttonLed', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0, roughness: 0.2, envMap: null, name: 'white abs'})),
                 new Visual('buttonInnerMetal', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('buttonRing', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
-                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.5, envMap: null, name: 'aluminium'})),
+                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xC0C0C0, metalness: 1, roughness: 0.5, envMap: null, name: 'aluminium'})),
                 new Visual('double1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('double2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('single1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
@@ -163,15 +163,20 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
 
-        // this.scene.background = this.background;
-        // var axesHelper = new THREE.AxesHelper( 5 );
-        // this.scene.add( axesHelper );
+        //this.scene.background = new THREE.Color( 0xffffff ); 
+         var axesHelper = new THREE.AxesHelper( 5 );
+         this.scene.add( axesHelper );
+         
+
         const light = new THREE.PointLight(0xffffff, 3, 1000);
-        light.position.set(100, 100, 100);
+        light.position.set(100, 20, 0);
         this.scene.add(light);
-        this.scene.add( new THREE.AmbientLight( 0x404040 ) );
+        
+        this.scene.add( new THREE.AmbientLight( 0xffffff ) );
 
         this.camera = new THREE.PerspectiveCamera(1, window.innerWidth / window.innerHeight, 1, 10000);
+        
+        
 
         this.camera.position.z = 10;
         this.camera.position.x = 10;
@@ -245,7 +250,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
         
         for (let j = 0; j < this.scenes.length; j++) {
-            for (let i = 0; i < this.folders[j].visuals.length; i++) {
+            
                 //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
                 //this.disposeNode(this.folders[j].visuals[i].name);
                 //this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
@@ -271,7 +276,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                                 if (node.material.envMap) {       node.material.envMap.dispose (); }
 
                                 node.material.dispose ();   // disposes any programs associated with the material
-                                console.log('destroy');
+                                //console.log('destroy');
 
 
 
@@ -285,7 +290,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                     
                 
                 
-            }
+            
             
         }
 
