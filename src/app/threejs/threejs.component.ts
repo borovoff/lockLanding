@@ -23,25 +23,11 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     width;
     scenes = [];
     path = 'assets/model/';
-    currentPath: string;
-    currentFolder;
-    currentSubFolder;
     loader;
     i;
     textureLoader;
     urls;
     background;
-    arcModel;
-    arcParts;
-    ramaModel;
-    ramaParts;
-    bodyModel;
-    bodyParts;
-    stopperModel;
-    stopperParts;
-    capModel;
-    capParts;
-    GLTFobjects = [];
 
     folders = [
          new Folder('arcAsm',
@@ -54,7 +40,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                  new Visual('arcMotherHolder2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
              ]
          ),
-         new Folder('bodyAsm', 
+         new Folder('bodyAsm',
             new Moving(new Vector3(0, 0, -0.030), new Euler(0, 0)), [
                 new Visual('bodyPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.5, envMap: null, name: 'cover'})),
                 new Visual('body', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
@@ -64,7 +50,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('bodyMotherHolder2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
             ]
         ),
-         new Folder('ramaAsm', 
+         new Folder('ramaAsm',
             new Moving(new Vector3(-0.030, 0, 0), new Euler(0, 0)), [
                 new Visual('buttonOuterMetal', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('buttonLed', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0, roughness: 0.2, envMap: null, name: 'white abs'})),
@@ -86,33 +72,33 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('bodyFatherBody1', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('bodyFatherBody2', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('bodyFatherBall1', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
-                new Visual('bodyFatherBall2', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})), 
+                new Visual('bodyFatherBall2', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
             ]
         ),
-         new Folder('long', 
+         new Folder('long',
             new Moving(new Vector3(0.008, 0.0075 + 0.008, 0.02), new Euler(Math.PI * 0.5, 0, Math.PI * 0.5)), [
                 new Visual('long', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
             ]
         ),
-         new Folder('short', 
+         new Folder('short',
             new Moving(new Vector3(- 0.008, 0.0075, 0.1 - 0.002), new Euler(- Math.PI * 0.5, 0, - Math.PI * 0.5)), [
                 new Visual('short', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
             ]
         ),
-         new Folder('stopperAsm', 
+         new Folder('stopperAsm',
             new Moving(new Vector3(-0.013, 0.0075 + 0.008, 0.1 - 0.0182), new Euler( Math.PI * 0.5, 0, 0)), [
                 new Visual('stopper', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('shaftSleeve', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
             ]
         ),
-         new Folder('servo', 
+         new Folder('servo',
             new Moving(new Vector3(0, -0.016, 0.1 - 0.006), new Euler( 0, Math.PI, 0)), [
-                
+
             ]
         ),
-         new Folder('pcb', 
+         new Folder('pcb',
             new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5)), [
-                
+
             ]
         ),
          new Folder('accumHolder',
@@ -122,25 +108,25 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         ),
          new Folder('battery',
             new Moving(new Vector3(0, -0.0093, 0.027), new Euler( -Math.PI * 0.5, 0, Math.PI )), [
-                
+
             ]
         ),
-         new Folder('antennaTorez', 
+         new Folder('antennaTorez',
             new Moving(new Vector3(0, 0, - 0.003), new Euler(0, Math.PI, Math.PI * 0.5)), [
                 new Visual('Body1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
             ]
         ),
-         new Folder('bluetooth', 
+         new Folder('bluetooth',
             new Moving(new Vector3(0.022, 0.000, - 0.007), new Euler(0, Math.PI, -Math.PI * 0.194)), [
-                
+
             ]
         ),
-         new Folder('gsm', 
+         new Folder('gsm',
             new Moving(new Vector3(-0.017, 0.001, - 0.006), new Euler(0, Math.PI, -Math.PI * 0.194)), [
-                
+
             ]
         ),
-         new Folder('capAsm', 
+         new Folder('capAsm',
             new Moving(new Vector3(0, 0.000, -0.0165), new Euler(0, Math.PI, 0)), [
                 new Visual('cap', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('QR0', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
@@ -150,7 +136,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('QR4', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0, roughness: 0.2, envMap: null, name: 'white abs'})),
             ]
         ),
-         new Folder('buttonTorez', 
+         new Folder('buttonTorez',
             new Moving(new Vector3(0, 0, 0.1595 + 0.001), new Euler(0, Math.PI, 0)), [
                 new Visual('Body1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
             ]
@@ -205,16 +191,14 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         }
 
         console.log(gltf);
-        const bc = this.textureLoader.load( this.urls );
-        
-        for (let i = 0; i < folder.visuals.length; i++) {
-            const material = folder.visuals[i].material;
-            material.envMap = this.background;
-            gltf.scene.children[0].getObjectByName(folder.visuals[i].name).material = material;
-            
-        }
-        
 
+        if (folder.visuals !== null) {
+            for (let i = 0; i < folder.visuals.length; i++) {
+                const material = folder.visuals[i].material;
+                material.envMap = this.background;
+                gltf.scene.children[0].getObjectByName(folder.visuals[i].name).material = material;
+            }
+        }
 
         this.scenes.push(new SceneAnimation(gltf.scene, folder.animation === null ? null : folder.animation));
         this.scene.add(gltf.scene);
@@ -244,54 +228,48 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        //console.log('destroy');
+        // console.log('destroy');
         // Following to RAM measuremebts in Chrome ram is released by deleting scenes. But on forums they say that it's neccecary to remove
         // all objects
         // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
-        
+
         for (let j = 0; j < this.scenes.length; j++) {
-            
-                //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
-                //this.disposeNode(this.folders[j].visuals[i].name);
-                //this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
-                this.scenes[j].scene.children[0].traverse( function(node) {
-                    
-                    if (node instanceof THREE.Mesh) {
-                        
-                        if (node.geometry) {
-                            
-                            node.geometry.dispose ();
+
+            //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
+            //this.disposeNode(this.folders[j].visuals[i].name);
+            //this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
+            this.scenes[j].scene.children[0].traverse( function(node) {
+
+                if (node instanceof THREE.Mesh) {
+
+                    if (node.geometry) {
+
+                        node.geometry.dispose ();
 
 
-                        }
+                    }
 
-                        if (node.material) {
-                            if (node.material instanceof THREE.MeshStandardMaterial) {
+                    if (node.material) {
+                        if (node.material instanceof THREE.MeshStandardMaterial) {
 
-                                if (node.material.map) {          node.material.map.dispose (); }
-                                if (node.material.lightMap) {     node.material.lightMap.dispose (); }
-                                if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
-                                if (node.material.normalMap) {    node.material.normalMap.dispose (); }
-                                // if (node.material.specularMap)  node.material.specularMap.dispose ();
-                                if (node.material.envMap) {       node.material.envMap.dispose (); }
+                            if (node.material.map) {          node.material.map.dispose (); }
+                            if (node.material.lightMap) {     node.material.lightMap.dispose (); }
+                            if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
+                            if (node.material.normalMap) {    node.material.normalMap.dispose (); }
+                            // if (node.material.specularMap)  node.material.specularMap.dispose ();
+                            if (node.material.envMap) {       node.material.envMap.dispose (); }
 
-                                node.material.dispose ();   // disposes any programs associated with the material
-                                //console.log('destroy');
+                            node.material.dispose ();   // disposes any programs associated with the material
+
+                            //console.log('destroy');
 
 
-
-                            }
 
 
                         }
                     }
-                    
-                });
-                    
-                
-                
-            
-            
+                }
+            });
         }
 
         for ( let i = 0; i < this.scenes.length; i++) {
@@ -299,28 +277,16 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 this.scenes[i].scene.remove(this.scenes[i].scene.children[0]);
             }
         }
-        
-        
-        
-
-        
-        
-
- 
-
-
     }
 
     disposeNode (node) {
-        
-        //console.log('destroy');
+
+        // console.log('destroy');
         if (node instanceof THREE.Mesh) {
             if (node.geometry) {
                 node.geometry.dispose ();
-                
-
             }
-            
+
             if (node.material) {
                 if (node.material instanceof THREE.MeshStandardMaterial) {
 
@@ -332,21 +298,16 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                     if (node.material.envMap) {       node.material.envMap.dispose (); }
 
                     node.material.dispose ();   // disposes any programs associated with the material
-
-                    
-
                 }
-
-
             }
         }
     }   // disposeNode
 
     disposeHierarchy (node, callback) {
         console.log(node.children.length);
-        for (let i = node.children.length-1; i >= 0; i--) {
-            
-            let child = node.children[i];
+        for (let i = node.children.length - 1; i >= 0; i--) {
+
+            const child = node.children[i];
             this.disposeHierarchy (child, callback);
             callback (child);
 
