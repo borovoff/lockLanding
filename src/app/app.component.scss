@@ -61,9 +61,6 @@ $pixel-width: 4625;
         height: 50%;
         min-height: 50%;
     }*/
-    
-
-    
 
     app-threejs {
         overflow: hidden;
@@ -81,10 +78,6 @@ $pixel-width: 4625;
         height: $percent-height * $pixel-height/$pixel-width * 100vw;
     }
 }
-
-
-
-
 
 .navbar {
     font-family: Helvetica, serif;
@@ -143,6 +136,7 @@ app-navbar {
 
     padding-right: 10px;
     padding-left:  10px;
+
     .contact {
         font-size: large;
         mat-icon {
