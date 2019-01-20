@@ -268,41 +268,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    disposeNode (node) {
-
-        // console.log('destroy');
-        if (node instanceof THREE.Mesh) {
-            if (node.geometry) {
-                node.geometry.dispose ();
-            }
-
-            if (node.material) {
-                if (node.material instanceof THREE.MeshStandardMaterial) {
-
-                    if (node.material.map) {          node.material.map.dispose (); }
-                    if (node.material.lightMap) {     node.material.lightMap.dispose (); }
-                    if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
-                    if (node.material.normalMap) {    node.material.normalMap.dispose (); }
-                    // if (node.material.specularMap)  node.material.specularMap.dispose ();
-                    if (node.material.envMap) {       node.material.envMap.dispose (); }
-
-                    node.material.dispose ();   // disposes any programs associated with the material
-                }
-            }
-        }
-    }   // disposeNode
-
-    disposeHierarchy (node, callback) {
-        console.log(node.children.length);
-        for (let i = node.children.length - 1; i >= 0; i--) {
-
-            const child = node.children[i];
-            this.disposeHierarchy (child, callback);
-            callback (child);
-
-        }
-    }
-
     @HostListener('window:resize', ['$event'])
     public onResize(event: Event) {
         this.setView();
