@@ -158,9 +158,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.scene = new THREE.Scene();
 
         this.scene.background = new THREE.Color( 0x000000 ); 
-         //var axesHelper = new THREE.AxesHelper( 5 );
-         //this.scene.add( axesHelper );
-         
 
         const light = new THREE.PointLight(0xffffff, 3, 1000);
         light.position.set(100,10,0);// 100,10,0
@@ -172,7 +169,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.lightHolder.add(light);
         this.lightHolder.add(light1);
         this.scene.add(this.lightHolder);
-        
+
         this.scene.add( new THREE.AmbientLight( 0xffffff ) );
 
         this.camera = new THREE.PerspectiveCamera(1, window.innerWidth / window.innerHeight, 1, 10000);
@@ -217,8 +214,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             gltf.scene.position.z = moving.position.z;
             gltf.scene.setRotationFromEuler(moving.rotation);
         }
-
-        console.log(gltf);
 
         if (folder.visuals !== null) {
             for (let i = 0; i < folder.visuals.length; i++) {
