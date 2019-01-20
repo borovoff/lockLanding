@@ -239,10 +239,55 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        console.log('destroy');
+        //console.log('destroy');
         // Following to RAM measuremebts in Chrome ram is released by deleting scenes. But on forums they say that it's neccecary to remove
         // all objects
         // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
+        
+        for (let j = 0; j < this.scenes.length; j++) {
+            for (let i = 0; i < this.folders[j].visuals.length; i++) {
+                //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
+                //this.disposeNode(this.folders[j].visuals[i].name);
+                //this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
+                this.scenes[j].scene.children[0].traverse( function(node) {
+                    
+                    if (node instanceof THREE.Mesh) {
+                        
+                        if (node.geometry) {
+                            
+                            node.geometry.dispose ();
+
+
+                        }
+
+                        if (node.material) {
+                            if (node.material instanceof THREE.MeshStandardMaterial) {
+
+                                if (node.material.map) {          node.material.map.dispose (); }
+                                if (node.material.lightMap) {     node.material.lightMap.dispose (); }
+                                if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
+                                if (node.material.normalMap) {    node.material.normalMap.dispose (); }
+                                // if (node.material.specularMap)  node.material.specularMap.dispose ();
+                                if (node.material.envMap) {       node.material.envMap.dispose (); }
+
+                                node.material.dispose ();   // disposes any programs associated with the material
+                                console.log('destroy');
+
+
+
+                            }
+
+
+                        }
+                    }
+                    
+                });
+                    
+                
+                
+            }
+            
+        }
 
         for ( let i = 0; i < this.scenes.length; i++) {
             while (this.scenes[i].scene.children.length > 0) {
@@ -252,12 +297,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         
         
         
-//        for (let j = 0; j < this.scenes.length; j++) {
-//            for (let i = 0; i < this.folders[j].visuals.length; i++) {
-//                this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name));
-//            }
-//            
-//        }
+
         
         
 
@@ -268,7 +308,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
     disposeNode (node) {
         
-        console.log('destroy');
+        //console.log('destroy');
         if (node instanceof THREE.Mesh) {
             if (node.geometry) {
                 node.geometry.dispose ();
@@ -298,7 +338,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     }   // disposeNode
 
     disposeHierarchy (node, callback) {
-        for (let i = node.children.length - 1; i >= 0; i--) {
+        console.log(node.children.length);
+        for (let i = node.children.length-1; i >= 0; i--) {
+            
             let child = node.children[i];
             this.disposeHierarchy (child, callback);
             callback (child);
