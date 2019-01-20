@@ -38,6 +38,8 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                  new Visual('arcMother2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
                  new Visual('arcMotherHolder1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                  new Visual('arcMotherHolder2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+                 new Visual('arcGask1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+                 new Visual('arcGask2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
              ]
          ),
          new Folder('bodyAsm',
@@ -56,7 +58,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('buttonLed', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0, roughness: 0.2, envMap: null, name: 'white abs'})),
                 new Visual('buttonInnerMetal', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('buttonRing', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
-                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xC0C0C0, metalness: 1, roughness: 0.5, envMap: null, name: 'aluminium'})),
+                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.5, envMap: null, name: 'aluminium'})),
                 new Visual('double1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('double2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('single1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
@@ -118,12 +120,18 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         ),
          new Folder('bluetooth',
             new Moving(new Vector3(0.022, 0.000, - 0.007), new Euler(0, Math.PI, -Math.PI * 0.194)), [
-
+                new Visual('Body1', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body3', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body4', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
             ]
         ),
          new Folder('gsm',
             new Moving(new Vector3(-0.017, 0.001, - 0.006), new Euler(0, Math.PI, -Math.PI * 0.194)), [
-
+                new Visual('Body1', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body3', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
+                new Visual('Body4', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
             ]
         ),
          new Folder('capAsm',
@@ -149,15 +157,20 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
 
-        //this.scene.background = new THREE.Color( 0xffffff ); 
+        this.scene.background = new THREE.Color( 0x000000 ); 
          //var axesHelper = new THREE.AxesHelper( 5 );
          //this.scene.add( axesHelper );
          
 
         const light = new THREE.PointLight(0xffffff, 3, 1000);
-        light.position.set(100,10,0);
+        light.position.set(100,10,0);// 100,10,0
+        
+        const light1 = new THREE.PointLight(0xffffff, 3, 1000);
+        light1.position.set(-100,10,0); // -100,10,0
+        
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
+        this.lightHolder.add(light1);
         this.scene.add(this.lightHolder);
         
         this.scene.add( new THREE.AmbientLight( 0xffffff ) );
@@ -176,6 +189,23 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.controls.center.z = 0.07;
         this.controls.center.y = 0.08;
         this.controls.update();
+        
+        var fontLoader = new THREE.FontLoader();
+
+        fontLoader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+
+                var geometry = new THREE.TextGeometry( 'Hello three.js!', {
+                        font: font,
+                        size: 80,
+                        height: 5,
+                        curveSegments: 12,
+                        bevelEnabled: true,
+                        bevelThickness: 10,
+                        bevelSize: 8,
+                        bevelSegments: 5
+                } );
+        } );
+        
     }
 
     loadingCompleted(gltf) {
@@ -278,6 +308,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         if (event.key === 'Enter') {
             this.expand();
         }
+        if (event.key === 'Escape') {
+            this.assemble();
+        }       
     }
 
     setView() {
@@ -292,29 +325,56 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
     expand() {
         const delta = 0.003;
-
+        //console.log('asm');
         if (this.scenes[0].scene.position.y <= 0.05) {
             this.scenes[0].scene.position.y += delta;
-        }
-        if (this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200) {
+            window.requestAnimationFrame(() => this.expand());
+        }else if (this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200) {
             this.scenes[1].scene.position.z += 2 * delta;
             this.scenes[14].scene.position.z += 2.1 * delta;
+            window.requestAnimationFrame(() => this.expand());
 
-        }
-        if (this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1) {
+        }else if (this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1) {
             this.scenes[8].scene.position.y -= delta;
             this.scenes[9].scene.position.y -= delta;
             this.scenes[6].scene.position.y -= 0.5 * delta;
             this.scenes[7].scene.position.y -= 0.4 * delta;
             this.scenes[13].scene.position.z -= delta;
+            window.requestAnimationFrame(() => this.expand());
         }
+
+
 
         if (this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ) {
             // this.scenes[6].scene.position.y -= delta;
             // this.scenes[7].scene.position.y -= delta;
             // this.scenes[13].scene.position.z -= delta;
         }
-        window.requestAnimationFrame(() => this.expand());
+        
+    }
+    
+    assemble(){
+        //console.log('asm');
+        const delta = 0.003;
+        
+        if (this.scenes[13].scene.position.z <= -0.0165-delta) {
+            this.scenes[8].scene.position.y += delta;
+            this.scenes[9].scene.position.y += delta;
+            this.scenes[6].scene.position.y += 0.5 * delta;
+            this.scenes[7].scene.position.y += 0.4 * delta;
+            this.scenes[13].scene.position.z += delta;
+            window.requestAnimationFrame(() => this.assemble());
+        }else if (this.scenes[13].scene.position.z >= -0.02 && this.scenes[1].scene.position.z>=-0.03) {
+            this.scenes[1].scene.position.z -= 2 * delta;
+            this.scenes[14].scene.position.z -= 2.1 * delta;
+            window.requestAnimationFrame(() => this.assemble());
+
+        }else if (this.scenes[1].scene.position.z < -0.02 && this.scenes[0].scene.position.y>-0.008+delta) {
+            this.scenes[0].scene.position.y -= delta;
+            window.requestAnimationFrame(() => this.assemble());
+
+        }
+        
     }
 
     animate() {
