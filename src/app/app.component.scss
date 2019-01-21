@@ -6,6 +6,9 @@ $navbar-indent: (50vh - $image-height / 2) / 2;
 $pixel-height: 3141;
 $pixel-width: 4625;
 
+$threejs-height: $percent-height * $pixel-height/$pixel-width * 100vw;
+$threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
+
 .center-banner {
     position: absolute;
 
@@ -32,8 +35,13 @@ $pixel-width: 4625;
         position: absolute;
         
         top: 50%;
+<<<<<<< HEAD
         left: 50%; 
         //transform: translate(-50%,-50%);
+=======
+        left: 50%;
+        transform: translate(-50%,-50%);
+>>>>>>> bf47ac2d07177101a7798e6a3ba41abde50c38b8
 
         min-height: 100%;
         max-width: 100%;
@@ -48,18 +56,31 @@ $pixel-width: 4625;
         position: absolute;
         top: 50%;
         left: 50%;
+<<<<<<< HEAD
         transform: translate(-50%, -50%);
         //transform: translate(-50%);
         //margin-top: -40vh;
         
         //margin-left: -$percent-height * $pixel-width/$pixel-height * 100vh/2;
         //margin-top: -$percent-height * $pixel-height/$pixel-width * 100vw/2;
+=======
+        //transform: translate(-50%, -50%);
+        //transform: translate(-50%);
+
+        margin-top: -40vh;
+        margin-left: -$threejs-width/2;
+
+>>>>>>> bf47ac2d07177101a7798e6a3ba41abde50c38b8
         min-height: 100%;
         max-width: 100%;
         max-height: 100%;
 
-        width: $percent-height * $pixel-width/$pixel-height * 100vh;
-        height: $percent-height * $pixel-height/$pixel-width * 100vw;
+        width: $threejs-width;
+        height: $threejs-height;
+
+        @media (max-width: calc(#{$threejs-width} + 16px)) {
+            margin-left: -50%;
+        }
     }
 }
 
