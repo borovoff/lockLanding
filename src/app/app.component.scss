@@ -33,7 +33,7 @@ $pixel-width: 4625;
         
         top: 50%;
         left: 50%; 
-        transform: translate(-50%,-50%);
+        //transform: translate(-50%,-50%);
 
         min-height: 100%;
         max-width: 100%;
@@ -49,6 +49,8 @@ $pixel-width: 4625;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        //transform: translate(-50%);
+        //margin-top: -40vh;
         
         //margin-left: -$percent-height * $pixel-width/$pixel-height * 100vh/2;
         //margin-top: -$percent-height * $pixel-height/$pixel-width * 100vw/2;

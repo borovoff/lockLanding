@@ -424,11 +424,11 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     onKeyDown(event) {
         if (event.key === 'Enter') {
             this.expand();
-            document.getElementById('info').innerHTML = 'Esc - собрать';
+            document.getElementById('info').innerHTML = '<br> Esc - собрать';
         }
         if (event.key === 'Escape') {
             this.assemble();
-            document.getElementById('info').innerHTML = 'Enter - разобрать';
+            document.getElementById('info').innerHTML = '<br> Enter - разобрать';
         }       
     }
 
