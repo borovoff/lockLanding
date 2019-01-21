@@ -51,10 +51,11 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-
+        //transform: translate(-50%, -50%);
         //transform: translate(-50%);
-        //margin-top: -40vh;
+
+        margin-top: -40vh;
+        margin-left: -$threejs-width/2;
 
         min-height: 100%;
         max-width: 100%;
@@ -62,6 +63,10 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
 
         width: $threejs-width;
         height: $threejs-height;
+
+        @media (max-width: calc(#{$threejs-width} + 16px)) {
+            margin-left: -50%;
+        }
     }
 }
 
