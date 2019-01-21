@@ -35,13 +35,8 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         position: absolute;
         
         top: 50%;
-<<<<<<< HEAD
-        left: 50%; 
-        //transform: translate(-50%,-50%);
-=======
         left: 50%;
         transform: translate(-50%,-50%);
->>>>>>> bf47ac2d07177101a7798e6a3ba41abde50c38b8
 
         min-height: 100%;
         max-width: 100%;
@@ -56,21 +51,12 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         position: absolute;
         top: 50%;
         left: 50%;
-<<<<<<< HEAD
-        transform: translate(-50%, -50%);
-        //transform: translate(-50%);
-        //margin-top: -40vh;
-        
-        //margin-left: -$percent-height * $pixel-width/$pixel-height * 100vh/2;
-        //margin-top: -$percent-height * $pixel-height/$pixel-width * 100vw/2;
-=======
         //transform: translate(-50%, -50%);
         //transform: translate(-50%);
 
         margin-top: -40vh;
         margin-left: -$threejs-width/2;
 
->>>>>>> bf47ac2d07177101a7798e6a3ba41abde50c38b8
         min-height: 100%;
         max-width: 100%;
         max-height: 100%;

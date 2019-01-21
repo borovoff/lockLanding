@@ -34,7 +34,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     folders = [
          new Folder('arcAsm',
              new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
-                 new Visual('arcPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.5, envMap: null, name: 'cover'})),
+                 new Visual('arcPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0.2, roughness: 0.5, envMap: null, name: 'cover'})),
                  new Visual('Body2', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                  new Visual('arcMother1', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
                  new Visual('arcMother2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
@@ -46,7 +46,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
          ),
          new Folder('bodyAsm',
             new Moving(new Vector3(0, 0, -0.030), new Euler(0, 0)), [
-                new Visual('bodyPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.5, envMap: null, name: 'cover'})),
+                new Visual('bodyPlasticCover', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0.2, roughness: 0.5, envMap: null, name: 'cover'})),
                 new Visual('body', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('bodyMother1', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
                 new Visual('bodyMother2', new THREE.MeshStandardMaterial({color: 0xb5a642, metalness: 0.8, roughness: 0.5, envMap: null, name: 'brass'})),
@@ -60,7 +60,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                 new Visual('buttonLed', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 0, roughness: 0.2, envMap: null, name: 'white abs'})),
                 new Visual('buttonInnerMetal', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
                 new Visual('buttonRing', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
-                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.5, envMap: null, name: 'aluminium'})),
+                new Visual('rama', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.35, envMap: null, name: 'aluminium'})),
                 new Visual('double1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('double2', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
                 new Visual('single1', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
@@ -97,7 +97,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         ),
          new Folder('servo',
             new Moving(new Vector3(0, -0.016, 0.1 - 0.006), new Euler( 0, Math.PI, 0)), [
-
+                new Visual('Body1', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
             ]
         ),
          new Folder('pcb',
@@ -161,7 +161,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
         this.scene.background = new THREE.Color( 0x000000 );
 
-        const light = new THREE.PointLight(0xffffff, 3, 1000);
+        const light = new THREE.PointLight(0xffffff, 2, 1000);
         light.position.set(100, 30, 100); // 100,10,0
         const light1 = new THREE.PointLight(0xffffff, 3, 1000);
         light1.position.set(-100, 10, 0); // -100,10,0
