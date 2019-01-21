@@ -8,9 +8,7 @@ $pixel-width: 4625;
 
 $threejs-height: $percent-height * $pixel-height/$pixel-width * 100vw;
 $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
-$max-width: -webkit-calc(#{$threejs-width} + 16px);
-$max-width: -moz-calc(#{$threejs-width} + 16px);
-$max-width: calc(0.8 * 4625 / 3141 * 100vh + 16px);
+$max-width: 1.02 * $threejs-width;
 
 
 .center-banner {
@@ -55,11 +53,9 @@ $max-width: calc(0.8 * 4625 / 3141 * 100vh + 16px);
         position: absolute;
         top: 50%;
         left: 50%;
-        //transform: translate(-50%, -50%);
-        transform: translate(-50%);
 
         margin-top: -40vh;
-        //margin-left: -50%;
+        margin-left: -$threejs-width/2;
 
         min-height: 100%;
         max-width: 100%;
@@ -68,9 +64,9 @@ $max-width: calc(0.8 * 4625 / 3141 * 100vh + 16px);
         width: $threejs-width;
         height: $threejs-height;
 
-        //@media (min-width: $max-width) {
-        //    margin-left: -$threejs-width/2;
-        //}
+        @media (max-width: $max-width) {
+            margin-left: -50%;
+        }
     }
 }
 
