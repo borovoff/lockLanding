@@ -29,6 +29,8 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     urls;
     background;
     lightHolder;
+    fontLoader;
+    textMesh;
     folders = [
          new Folder('arcAsm',
              new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
@@ -157,17 +159,19 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
 
-        this.scene.background = new THREE.Color( 0x000000 ); 
+        this.scene.background = new THREE.Color( 0x000000 );
 
         const light = new THREE.PointLight(0xffffff, 3, 1000);
-        light.position.set(100,10,0);// 100,10,0
-        
+        light.position.set(100, 30, 100); // 100,10,0
         const light1 = new THREE.PointLight(0xffffff, 3, 1000);
-        light1.position.set(-100,10,0); // -100,10,0
-        
+        light1.position.set(-100, 10, 0); // -100,10,0
+        const light2 = new THREE.PointLight(0xffffff, 0.2, 1000);
+        light2.position.set(50, 0, -40); // -100,10,0
+
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
         this.lightHolder.add(light1);
+        this.lightHolder.add(light2);
         this.scene.add(this.lightHolder);
 
         this.scene.add( new THREE.AmbientLight( 0xffffff ) );
@@ -179,30 +183,114 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         console.log(this.camera.position);
 
         this.loadingCompleted = this.loadingCompleted.bind(this);
+        this.fontloadingCompleted = this.fontloadingCompleted.bind(this);
         this.i = 0;
         this.load();
+        //this.loadFont();
 
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.controls.center.z = 0.07;
         this.controls.center.y = 0.08;
         this.controls.update();
-        
-        var fontLoader = new THREE.FontLoader();
 
-        fontLoader.load( 'fonts/helvetiker_regular.typeface.json', function ( font ) {
+        this.makeTextSprite = this.makeTextSprite.bind(this);
+        const spritey1 = this.makeTextSprite( ' ENTER - разобрать ',
+        { fontsize: 35, fontface: 'Helvetica', borderColor: {r: 255, g: 255, b: 255, a: 1.0} } );
+        spritey1.position.set(0.25, 0.22, 0.1);
+        // this.scene.add( spritey1 );
+        const spritey2 = this.makeTextSprite( ' ESC - собрать ',
+        { fontsize: 35, fontface: 'Helvetica', borderColor: {r: 255, g: 255, b: 255, a: 1.0} } );
+        spritey2.position.set(0.25, 0.2, 0.1);
+        // this.scene.add( spritey2 );
 
-                var geometry = new THREE.TextGeometry( 'Hello three.js!', {
-                        font: font,
-                        size: 80,
-                        height: 5,
-                        curveSegments: 12,
-                        bevelEnabled: true,
-                        bevelThickness: 10,
-                        bevelSize: 8,
-                        bevelSegments: 5
-                } );
-        } );
-        
+        const textureLoader = new THREE.TextureLoader();
+        const mapB = textureLoader.load( 'assets/textures/info.png' );
+        const materialB = new THREE.SpriteMaterial( { map: mapB, color: 0xffffff, fog: true } );
+        const sprite1 = new THREE.Sprite( materialB );
+        sprite1.position.set( 0.28, 0.27, 0.15 ); // 0.3, 0.375, 0.55
+        sprite1.scale.set(0.07, 0.07, 0.07);
+        // this.scene.add( sprite1 );
+
+
+        // const mapC = textureLoader.load( 'assets/textures/Esc.png' );
+        // const materialC = new THREE.SpriteMaterial( { map: mapC, color: 0xffffff, fog: true } );
+        // const sprite2 = new THREE.Sprite( materialC );
+        // sprite2.position.set( 0.25, 0.15, 0.15 );
+        // sprite2.scale.set(0.1, 0.05, 0.1);
+        // this.scene.add( sprite2 );
+
+    }
+
+
+    makeTextSprite( message, parameters ) {
+        if ( parameters === undefined ) {
+            parameters = {};
+        }
+
+        const fontface = parameters.hasOwnProperty('fontface') ?
+            parameters['fontface'] : 'Arial';
+
+        const fontsize = parameters.hasOwnProperty('fontsize') ?
+            parameters['fontsize'] : 18;
+
+        const borderThickness = parameters.hasOwnProperty('borderThickness') ?
+            parameters['borderThickness'] : 4;
+
+        const borderColor = parameters.hasOwnProperty('borderColor') ?
+            parameters['borderColor'] : { r: 0, g: 0, b: 0, a: 1.0 };
+
+        const backgroundColor = parameters.hasOwnProperty('backgroundColor') ?
+            parameters['backgroundColor'] : { r: 255, g: 255, b: 255, a: 0.0 };
+
+        const canvas = document.createElement('canvas');
+        canvas.height = 256;
+        canvas.width = 512;
+        const context = canvas.getContext('2d');
+        context.font =  fontsize + 'px ' + fontface;
+
+        // get size data (height depends only on font size)
+        const metrics = context.measureText( message );
+        const textWidth = metrics.width;
+
+        // background color
+        context.fillStyle   = 'rgba(' + backgroundColor.r + ',' + backgroundColor.g + ','
+                                    + backgroundColor.b + ',' + backgroundColor.a + ')';
+        // border color
+        context.strokeStyle = 'rgba(' + borderColor.r + ',' + borderColor.g + ','
+                                    + borderColor.b + ',' + borderColor.a + ')';
+        context.lineWidth = borderThickness;
+        this.roundRect(context, borderThickness / 2, borderThickness / 2, textWidth + borderThickness, fontsize * 1.4 + borderThickness, 6);
+        // 1.4 is extra height factor for text below baseline: g,j,p,q.
+
+        // text color
+        context.fillStyle = 'rgba(255, 255, 255, 1.0)';
+        context.fillText( message, borderThickness, fontsize + borderThickness);
+
+        // canvas contents will be used for a texture
+        const texture = new THREE.Texture(canvas);
+        texture.needsUpdate = true;
+        const spriteMaterial = new THREE.SpriteMaterial(
+            { map: texture, color: 0xffffff, fog: false } );
+        const sprite = new THREE.Sprite( spriteMaterial );
+        sprite.scale.set(0.1, 0.07, 0.1);
+        return sprite;
+    }
+
+    // function for drawing rounded rectangles
+    roundRect(ctx, x, y, w, h, r) {
+        ctx.beginPath();
+        ctx.moveTo(x + r, y);
+        ctx.lineTo(x + w - r, y);
+        ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+        ctx.lineTo(x + w, y + h - r);
+        ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+        ctx.lineTo(x+r, y+h);
+        ctx.quadraticCurveTo(x, y+h, x, y+h-r);
+        ctx.lineTo(x, y+r);
+        ctx.quadraticCurveTo(x, y, x+r, y);
+        ctx.closePath();
+        ctx.fill();
+        ctx.stroke();
     }
 
     loadingCompleted(gltf) {
@@ -231,6 +319,31 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         if (this.i < this.folders.length) {
             this.load();
         }
+
+
+
+    }
+
+    fontloadingCompleted(font) {
+
+            const textGeo = new THREE.TextGeometry( 'Enter - disassemble, Esc - assemble', {
+                font: font,
+                size: 0.005,
+                height: 0.000,
+                curveSegments: 12,
+                bevelThickness: 1,
+                bevelSize: 1,
+                bevelEnabled: false
+            } );
+            const textMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.5, envMap: null, name: 'white abs'} );
+            this.textMesh = new THREE.Mesh( textGeo, textMaterial );
+
+            
+            this.textMesh.rotation.y = Math.PI / 4;
+            this.textMesh.position.set(0.1, 0.0, 0.1);
+            
+
+            this.scene.add( this.textMesh );
     }
 
     load() {
@@ -238,6 +351,15 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         const folder = this.folders[this.i].name;
         const fullPath = this.path + folder + '.glb';
         this.loader.load(fullPath, this.loadingCompleted);
+
+        
+
+        
+    }
+    loadFont() {
+        this.fontLoader = new THREE.FontLoader();
+        this.textMesh = new THREE.Mesh();
+        this.fontLoader.load( 'assets/fonts/helvetiker_bold.typeface.json', this.fontloadingCompleted);
     }
 
     private get canvas(): HTMLCanvasElement {
@@ -302,9 +424,11 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     onKeyDown(event) {
         if (event.key === 'Enter') {
             this.expand();
+            document.getElementById('info').innerHTML = 'Esc - собрать';
         }
         if (event.key === 'Escape') {
             this.assemble();
+            document.getElementById('info').innerHTML = 'Enter - разобрать';
         }       
     }
 
