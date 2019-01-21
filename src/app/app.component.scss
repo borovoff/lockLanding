@@ -8,6 +8,8 @@ $pixel-width: 4625;
 
 $threejs-height: $percent-height * $pixel-height/$pixel-width * 100vw;
 $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
+$max-width: 1.02 * $threejs-width;
+
 
 .center-banner {
     position: absolute;
@@ -51,8 +53,6 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         position: absolute;
         top: 50%;
         left: 50%;
-        //transform: translate(-50%, -50%);
-        //transform: translate(-50%);
 
         margin-top: -40vh;
         margin-left: -$threejs-width/2;
@@ -64,7 +64,7 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         width: $threejs-width;
         height: $threejs-height;
 
-        @media (max-width: calc(#{$threejs-width} + 16px)) {
+        @media (max-width: $max-width) {
             margin-left: -50%;
         }
     }
