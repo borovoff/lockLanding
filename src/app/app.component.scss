@@ -20,12 +20,12 @@ $max-width: 1.02 * $threejs-width;
     height: $image-height;
     margin-top: -$image-height/2;
 
-    .container{
-        overflow: hidden;
+    .container {
+        z-index: 1;
+        overflow: hidden !important;
         border-radius: 20px !important;
-        border: 2px solid white;
         position: absolute;
-        
+
         top: 50%;
         left: 50%;
 
@@ -39,7 +39,7 @@ $max-width: 1.02 * $threejs-width;
         height: $percent-height * $pixel-height/$pixel-width * 100vw;
         @media (max-width: $max-width) {
             margin-left: -50%;
-        }  
+        }
     }
 
     .container img {
@@ -57,7 +57,7 @@ $max-width: 1.02 * $threejs-width;
          overflow: hidden;
          border-radius: 20px !important;
          position: absolute;
-        
+
          top: 50%;
          left: 50%;
 
