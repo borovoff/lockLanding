@@ -31,6 +31,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     lightHolder;
     fontLoader;
     textMesh;
+    requestFlag;
     folders = [
          new Folder('arcAsm',
              new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
@@ -97,12 +98,18 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         ),
          new Folder('servo',
             new Moving(new Vector3(0, -0.016, 0.1 - 0.006), new Euler( 0, Math.PI, 0)), [
-                new Visual('Body1', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.2, envMap: null, name: 'steel'})),
+                new Visual('servo', new THREE.MeshStandardMaterial({color: 0x1919ff, metalness: 0, roughness: 0.7, envMap: null, name: 'blue abs'})),
+                new Visual('servoShaft', new THREE.MeshStandardMaterial({color: 0xFFFFFF, metalness: 0, roughness: 0.7, envMap: null, name: 'white abs'})),
             ]
         ),
          new Folder('pcb',
             new Moving(new Vector3(- 0.014, 0, 0.073), new Euler(Math.PI * 0.5, 0, - Math.PI * 0.5)), [
-
+                new Visual('pcb', new THREE.MeshStandardMaterial({color: 0x980002, metalness: 0.5, roughness: 0.5, envMap: null, name: 'pcb'})),
+                new Visual('sim7000e', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+                new Visual('simCardHolder', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.6, envMap: null, name: 'steel'})),
+                new Visual('usb', new THREE.MeshStandardMaterial({color: 0xffffff, metalness: 1, roughness: 0.6, envMap: null, name: 'steel'})),
+                new Visual('cc2640r2f', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
+                new Visual('mpu-6500', new THREE.MeshStandardMaterial({color: 0x000000, metalness: 0, roughness: 0.2, envMap: null, name: 'black abs'})),
             ]
         ),
          new Folder('accumHolder',
@@ -369,6 +376,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     ngAfterViewInit() {
         this.setView();
         this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
+        this.requestFlag = 1;
         this.animate();
     }
 
@@ -377,7 +385,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         // Following to RAM measuremebts in Chrome ram is released by deleting scenes. But on forums they say that it's neccecary to remove
         // all objects
         // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
-
+        this.requestFlag = 0;
         for (let j = 0; j < this.scenes.length; j++) {
 
             //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
@@ -497,7 +505,10 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     }
 
     animate() {
-        window.requestAnimationFrame(() => this.animate());
+        if (this.requestFlag === 1) {
+            window.requestAnimationFrame(() => this.animate());
+        }
+        
         // requestAnimationFrame( animate );
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
