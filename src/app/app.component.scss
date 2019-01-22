@@ -56,10 +56,10 @@ $max-width: 1.02 * $threejs-width;
     .container iframe {
          overflow: hidden;
          border-radius: 20px !important;
-         position: relative;
+         position: absolute;
         
          top: 50%;
-         left: 25%;
+         left: 50%;
 
          margin-top: -40vh;
          margin-left: -$threejs-width/2;
