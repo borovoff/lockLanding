@@ -160,6 +160,7 @@ $max-width: 1.02 * $threejs-width;
     }
 }
 .burger-navbar {
+    margin-top: -10px;
     @media (min-width: 760px) {
         display: none;
     }     
@@ -179,9 +180,9 @@ $max-width: 1.02 * $threejs-width;
   }
   
   .sidenav a {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 8px 8px 8px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 20px;
     color: black;
     display: block;
     transition: 0.3s;
