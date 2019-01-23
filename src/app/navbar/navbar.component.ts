@@ -30,7 +30,15 @@ export class NavbarComponent {
                         this.items.shift();
                     }
                 }
+                document.getElementById('mySidenav').style.width = '0';
             }
         });
+    }
+
+    onClickMe() {
+        document.getElementById('mySidenav').style.width = '250px';
+    }
+    onClose() {
+        document.getElementById('mySidenav').style.width = '0';
     }
 }

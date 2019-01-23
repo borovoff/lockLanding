@@ -333,7 +333,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
     fontloadingCompleted(font) {
 
-            const textGeo = new THREE.TextGeometry( 'Enter - disassemble, Esc - assemble', {
+            const textGeo = new THREE.TextGeometry( 'Enter — disassemble, Esc - assemble', {
                 font: font,
                 size: 0.005,
                 height: 0.000,
@@ -432,11 +432,11 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     onKeyDown(event) {
         if (event.key === 'Enter') {
             this.expand();
-            document.getElementById('info').innerHTML = '<br> Esc - собрать';
+            document.getElementById('info').innerHTML = '<br> Esc — собрать';
         }
         if (event.key === 'Escape') {
             this.assemble();
-            document.getElementById('info').innerHTML = '<br> Enter - разобрать';
+            document.getElementById('info').innerHTML = '<br> Enter — разобрать';
         }       
     }
 

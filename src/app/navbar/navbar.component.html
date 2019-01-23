@@ -1,3 +1,12 @@
+<div class="burger-navbar" style="font-size:30px;cursor:pointer;" (click)="onClickMe()">&#9776;</div>
+<div id="mySidenav" class="sidenav">
+        <a (click)="onClose()" >&times;</a>
+        <li *ngFor="let item of items" style = "list-style-type: none;">
+            <a routerLink="{{item.link}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+                {{item.name}}
+            </a>
+        </li>
+</div>
 <div class="navbar">
     <ul>
         <li *ngFor="let item of items">
