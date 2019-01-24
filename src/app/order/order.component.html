@@ -30,6 +30,26 @@
 
     <p>Цена и возможность заказать замок появятся после достижения договоренностей с фабриками о массовом производстве.</p>
 
+    <p>Оставьте контакты, чтобы получить замок первым.</p>
+
+    <div class="example-container">
+        <mat-form-field>
+            <input matInput placeholder="Имя" [value]="name">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="email" [value]="mail">
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput placeholder="Телефон" [value]="phone" >
+        </mat-form-field>
+
+        <button mat-button (click)="send()">Отправить</button>
+        <!--<button class="order-button" (click)="send()">Отправить</button>-->
+    </div>
+
+
 
     <!-- <div> class="row">
         <div class="column-name">

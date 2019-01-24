@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
     selector: 'app-order',
@@ -6,5 +7,21 @@ import {Component} from '@angular/core';
     styleUrls: ['../app.component.scss']
 })
 export class OrderComponent {
+    name = '';
+    mail = '';
+    phone = '';
 
+    constructor(private http: HttpClient) { }
+
+
+    send() {
+        const url = 'https://sharing.tzar.su/rest/user/addmail?name=' + this.name + '&mail=' +
+            this.mail + '&phone=' + this.phone;
+
+        console.log(url);
+
+        this.http.get(url).subscribe((res) => {
+            console.log(res);
+        });
+    }
 }

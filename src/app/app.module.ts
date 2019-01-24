@@ -11,8 +11,9 @@ import {MainComponent} from './main/main.component';
 import {ContactComponent} from './contact/contact.component';
 import {OrderComponent} from './order/order.component';
 import {DownloadsComponent} from './downloads/downloads.component';
-import {MatIconModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
     declarations: [
@@ -30,7 +31,11 @@ import {HttpClientModule} from '@angular/common/http';
         BrowserModule,
         AppRoutingModule,
         MatIconModule,
-        HttpClientModule
+        HttpClientModule,
+        MatFormFieldModule,
+        MatInputModule,
+        BrowserAnimationsModule,
+        MatButtonModule
     ],
     providers: [],
     bootstrap: [AppComponent]
