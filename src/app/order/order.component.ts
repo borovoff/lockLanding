@@ -1,10 +1,5 @@
 import {Component} from '@angular/core';
-import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
-
-interface TrueResponse {
-    result: boolean;
-}
 
 @Component({
     selector: 'app-order',
@@ -12,8 +7,6 @@ interface TrueResponse {
     styleUrls: ['../app.component.scss']
 })
 export class OrderComponent {
-
-    courses$: Observable<TrueResponse[]>;
     name = '';
     mail = '';
     phone = '';
@@ -30,10 +23,5 @@ export class OrderComponent {
         this.http.get(url).subscribe((res) => {
             console.log(res);
         });
-
-        // this.courses$ = this.http
-        //     .get<TrueResponse[]>(url)
-        //     .map(data => _.values(data))
-        //     .do(console.log);
     }
 }
