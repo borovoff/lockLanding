@@ -33,19 +33,29 @@
     <p>Оставьте контакты, чтобы получить замок первым.</p>
 
     <div class="example-container">
-        <mat-form-field>
-            <input matInput placeholder="Имя" [value]="name">
-        </mat-form-field>
+        <p>
+            <mat-form-field>
+                    <input matInput placeholder="Имя" [value]="name">
+            </mat-form-field>
+        </p>
+        
+        <p>
+            <mat-form-field>
+                    <input matInput placeholder="Email" [value]="mail">
+            </mat-form-field>
+        </p>
 
-        <mat-form-field>
-            <input matInput placeholder="email" [value]="mail">
-        </mat-form-field>
+        <p>
+            <mat-form-field>
+                    <input matInput placeholder="Телефон" [value]="phone" >
+            </mat-form-field>
+        </p>
 
-        <mat-form-field>
-            <input matInput placeholder="Телефон" [value]="phone" >
-        </mat-form-field>
-
-        <button mat-button (click)="send()">Отправить</button>
+        <p>
+            <!-- <button mat-button (click)="send()">Отправить</button> -->
+            <button class="order-button">Отправить</button>
+        </p>
+        
         <!--<button class="order-button" (click)="send()">Отправить</button>-->
     </div>
 
