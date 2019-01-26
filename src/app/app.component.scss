@@ -233,7 +233,7 @@ app-navbar {
     padding-left:  10px;
 
     .contact {
-        font-size: medium;
+        //font-size: medium;
         mat-icon {
             position: relative;
             top: 5px;
@@ -308,6 +308,15 @@ app-navbar {
 
     .column-one {
         flex: 67%;
+    }
+
+    .example-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .example-container > * {
+        width: 100%;
     }
 }
 

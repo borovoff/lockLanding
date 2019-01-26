@@ -22,10 +22,10 @@
                     Акселерометр 
                 </td>
             </tr>
-            <tr style="background-color: white">
-                <td style = "text-align: center; border: none;padding: 0px;"><button class="order-button">Заказать</button></td> 
-                <td style = "text-align: center; border: none; padding: 0px;"><button class="order-button">Заказать</button></td>  
-            </tr>
+            <!--<tr style="background-color: white">-->
+                <!--<td style = "text-align: center; border: none;padding: 0px;"><button class="order-button">Заказать</button></td> -->
+                <!--<td style = "text-align: center; border: none; padding: 0px;"><button class="order-button">Заказать</button></td>  -->
+            <!--</tr>-->
     </table>
 
     <p>Цена и возможность заказать замок появятся после достижения договоренностей с фабриками о массовом производстве.</p>
@@ -33,30 +33,36 @@
     <p>Оставьте контакты, чтобы получить замок первым.</p>
 
     <div class="example-container">
-        <p>
-            <mat-form-field>
-                    <input matInput placeholder="Имя" [value]="name">
-            </mat-form-field>
-        </p>
-        
-        <p>
-            <mat-form-field>
-                    <input matInput placeholder="Email" [value]="mail">
-            </mat-form-field>
-        </p>
+        <mat-form-field>
+            <input matInput placeholder="Имя" [(ngModel)]="name" >
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput placeholder="Email" [(ngModel)]="mail">
+        </mat-form-field>
+        <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
+            <!--Пожалуйста, введите настоящий Email-->
+        <!--</mat-error>-->
+        <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
+            <!--Email <strong>необходимо заполнить</strong>-->
+        <!--</mat-error>-->
 
-        <p>
-            <mat-form-field>
-                    <input matInput placeholder="Телефон" [value]="phone" >
-            </mat-form-field>
-        </p>
+        <mat-form-field>
+            <input matInput placeholder="Телефон" [(ngModel)]="phone" >
+        </mat-form-field>
 
-        <p>
-            <!-- <button mat-button (click)="send()">Отправить</button> -->
-            <button class="order-button">Отправить</button>
+        <button class="order-button" (click)="send()">Отправить</button>
+
+        <p *ngIf="sended">
+            Данные отправлены.
         </p>
-        
-        <!--<button class="order-button" (click)="send()">Отправить</button>-->
+        <p *ngIf="error">
+            Не заполнено одно из полей.
+        </p>
+        <!--<button mat-button (click)="send()">Отправить</button>-->
+        <!--<p>-->
+            <!---->
+            <!---->
+        <!--</p>-->
     </div>
 
 
