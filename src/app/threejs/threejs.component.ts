@@ -177,7 +177,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
-        this.lightHolder.add(light1);
+        //this.lightHolder.add(light1);
         this.lightHolder.add(light2);
         this.scene.add(this.lightHolder);
 
