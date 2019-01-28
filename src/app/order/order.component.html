@@ -50,14 +50,15 @@
             <input matInput placeholder="Телефон" [(ngModel)]="phone" >
         </mat-form-field>
 
-        <button class="order-button" (click)="send()">Отправить</button>
-
         <p *ngIf="sended">
             Данные отправлены.
         </p>
         <p *ngIf="error">
             Не заполнено одно из полей.
         </p>
+
+        <button class="order-button" (click)="send()">Отправить</button>
+
         <!--<button mat-button (click)="send()">Отправить</button>-->
         <!--<p>-->
             <!---->
