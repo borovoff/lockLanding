@@ -39,18 +39,10 @@
         <mat-form-field>
             <input matInput placeholder="Email" [(ngModel)]="mail">
         </mat-form-field>
-        <!--<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">-->
-            <!--Пожалуйста, введите настоящий Email-->
-        <!--</mat-error>-->
-        <!--<mat-error *ngIf="emailFormControl.hasError('required')">-->
-            <!--Email <strong>необходимо заполнить</strong>-->
-        <!--</mat-error>-->
 
         <mat-form-field>
             <input matInput placeholder="Телефон" [(ngModel)]="phone" >
         </mat-form-field>
-
-        <button class="order-button" (click)="send()">Отправить</button>
 
         <p *ngIf="sended">
             Данные отправлены.
@@ -58,113 +50,8 @@
         <p *ngIf="error">
             Не заполнено одно из полей.
         </p>
-        <!--<button mat-button (click)="send()">Отправить</button>-->
-        <!--<p>-->
-            <!---->
-            <!---->
-        <!--</p>-->
+
+        <button class="order-button" (click)="send()">Отправить</button>
+
     </div>
-
-
-
-    <!-- <div> class="row">
-        <div class="column-name">
-
-        </div>
-        <div class="column-name">
-            <p class="name">Lite</p>
-        </div>
-        <div class="column-name">
-            <p class="name">Super</p>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column-name">
-            <p class="name">Электроника</p>
-        </div>
-        <div class="column-one">
-            <ul style="list-style: none;">
-                <li>
-                    Bluetooth: 4.2
-                </li>
-                <li>
-                    Датчик температуры
-                </li>
-                <li>
-                    Акселерометр
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column-name">
-
-        </div>
-        <div class="column-name">
-            <ul style="list-style: none;">
-                <li>
-                    —
-                </li>
-            </ul>
-        </div>
-        <div class="column-name">
-            <ul style="list-style: none;">
-                <li>
-                    IoT 2G модуль
-                </li>
-                <li>
-                    Чувствительное покрытие
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column-name">
-            <p class="name">Материалы</p>
-        </div>
-        <div class="column-one">
-            <ul style="list-style: none;">
-                <li>
-                    Корпус, дуга: закаленная сталь
-                </li>
-                <li>
-                    Рама: алюминий
-                </li>
-                <li>
-                    Покрытие: полиолефин
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column-name">
-            <p class="name">Размеры</p>
-        </div>
-        <div class="column-one">
-            <ul style="list-style: none;">
-                <li>
-                    Диаметр дуги: 18 мм
-                </li>
-                <li>
-                    Охватываемое пространство: 10 на 16 см
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="column-name">
-
-        </div>
-        <div class="column-name">
-            <button class="order-button">Заказать</button>
-        </div>
-        <div class="column-name">
-            <button class="order-button">Заказать</button>
-        </div>
-    </div> -->
 </div>
