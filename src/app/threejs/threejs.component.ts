@@ -190,7 +190,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         console.log(this.camera.position);
 
         this.loadingCompleted = this.loadingCompleted.bind(this);
-        this.fontloadingCompleted = this.fontloadingCompleted.bind(this);
         this.i = 0;
         this.load();
 
@@ -226,28 +225,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         if (this.i < this.folders.length) {
             this.load();
         }
-    }
-
-    fontloadingCompleted(font) {
-
-            const textGeo = new THREE.TextGeometry( 'Enter — disassemble, Esc - assemble', {
-                font: font,
-                size: 0.005,
-                height: 0.000,
-                curveSegments: 12,
-                bevelThickness: 1,
-                bevelSize: 1,
-                bevelEnabled: false
-            } );
-            const textMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.5, envMap: null, name: 'white abs'} );
-            this.textMesh = new THREE.Mesh( textGeo, textMaterial );
-
-
-            this.textMesh.rotation.y = Math.PI / 4;
-            this.textMesh.position.set(0.1, 0.0, 0.1);
-
-
-            this.scene.add( this.textMesh );
     }
 
     load() {
