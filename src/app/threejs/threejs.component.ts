@@ -166,7 +166,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
 
-        this.scene.background = new THREE.Color( 0x000000 );
+        this.scene.background = new THREE.Color( 0x171717 );
 
         const light = new THREE.PointLight(0xffffff, 2, 1000);
         light.position.set(100, 30, 100); // 100,10,0
