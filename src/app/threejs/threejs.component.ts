@@ -177,7 +177,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
-        //this.lightHolder.add(light1);
+        // this.lightHolder.add(light1);
         this.lightHolder.add(light2);
         this.scene.add(this.lightHolder);
 
@@ -193,7 +193,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.fontloadingCompleted = this.fontloadingCompleted.bind(this);
         this.i = 0;
         this.load();
-        //this.loadFont();
+        // this.loadFont();
 
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
         this.controls.center.z = 0.07;
@@ -291,10 +291,10 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         ctx.quadraticCurveTo(x + w, y, x + w, y + r);
         ctx.lineTo(x + w, y + h - r);
         ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
-        ctx.lineTo(x+r, y+h);
-        ctx.quadraticCurveTo(x, y+h, x, y+h-r);
-        ctx.lineTo(x, y+r);
-        ctx.quadraticCurveTo(x, y, x+r, y);
+        ctx.lineTo(x + r, y + h);
+        ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+        ctx.lineTo(x, y + r);
+        ctx.quadraticCurveTo(x, y, x + r, y);
         ctx.closePath();
         ctx.fill();
         ctx.stroke();
@@ -326,9 +326,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         if (this.i < this.folders.length) {
             this.load();
         }
-
-
-
     }
 
     fontloadingCompleted(font) {
@@ -345,10 +342,10 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             const textMaterial = new THREE.MeshStandardMaterial( { color: 0xffffff, metalness: 0, roughness: 0.5, envMap: null, name: 'white abs'} );
             this.textMesh = new THREE.Mesh( textGeo, textMaterial );
 
-            
+
             this.textMesh.rotation.y = Math.PI / 4;
             this.textMesh.position.set(0.1, 0.0, 0.1);
-            
+
 
             this.scene.add( this.textMesh );
     }
@@ -358,15 +355,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         const folder = this.folders[this.i].name;
         const fullPath = this.path + folder + '.glb';
         this.loader.load(fullPath, this.loadingCompleted);
-
-        
-
-        
-    }
-    loadFont() {
-        this.fontLoader = new THREE.FontLoader();
-        this.textMesh = new THREE.Mesh();
-        this.fontLoader.load( 'assets/fonts/helvetiker_bold.typeface.json', this.fontloadingCompleted);
     }
 
     private get canvas(): HTMLCanvasElement {
@@ -388,9 +376,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.requestFlag = 0;
         for (let j = 0; j < this.scenes.length; j++) {
 
-            //this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
-            //this.disposeNode(this.folders[j].visuals[i].name);
-            //this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
+            // this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
+            // this.disposeNode(this.folders[j].visuals[i].name);
+            // this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
             this.scenes[j].scene.children[0].traverse( function(node) {
 
                 if (node instanceof THREE.Mesh) {
@@ -409,7 +397,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
                             if (node.material.envMap) {       node.material.envMap.dispose (); }
 
                             node.material.dispose ();   // disposes any programs associated with the material
-                            //console.log('destroy');
+                            // console.log('destroy');
                         }
                     }
                 }
@@ -437,7 +425,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         if (event.key === 'Escape') {
             this.assemble();
             document.getElementById('info').innerHTML = '<br> Enter — разобрать';
-        }       
+        }
     }
 
     setView() {
@@ -452,16 +440,16 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
     expand() {
         const delta = 0.003;
-        //console.log('asm');
+        // console.log('asm');
         if (this.scenes[0].scene.position.y <= 0.05) {
             this.scenes[0].scene.position.y += delta;
             window.requestAnimationFrame(() => this.expand());
-        }else if (this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200) {
+        } else if (this.scenes[0].scene.position.y > 0.04 && this.scenes[1].scene.position.z <= 0.200) {
             this.scenes[1].scene.position.z += 2 * delta;
             this.scenes[14].scene.position.z += 2.1 * delta;
             window.requestAnimationFrame(() => this.expand());
 
-        }else if (this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1) {
+        } else if (this.scenes[1].scene.position.z > 0.190 && this.scenes[9].scene.position.y >= -0.1) {
             this.scenes[8].scene.position.y -= delta;
             this.scenes[9].scene.position.y -= delta;
             this.scenes[6].scene.position.y -= 0.5 * delta;
@@ -470,45 +458,42 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             window.requestAnimationFrame(() => this.expand());
         }
 
-
-
         if (this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ) {
             // this.scenes[6].scene.position.y -= delta;
             // this.scenes[7].scene.position.y -= delta;
             // this.scenes[13].scene.position.z -= delta;
         }
-        
     }
-    
-    assemble(){
-        //console.log('asm');
+
+    assemble() {
+        // console.log('asm');
         const delta = 0.003;
-        
-        if (this.scenes[13].scene.position.z <= -0.0165-delta) {
+
+        if (this.scenes[13].scene.position.z <= -0.0165 - delta) {
             this.scenes[8].scene.position.y += delta;
             this.scenes[9].scene.position.y += delta;
             this.scenes[6].scene.position.y += 0.5 * delta;
             this.scenes[7].scene.position.y += 0.4 * delta;
             this.scenes[13].scene.position.z += delta;
             window.requestAnimationFrame(() => this.assemble());
-        }else if (this.scenes[13].scene.position.z >= -0.02 && this.scenes[1].scene.position.z>=-0.03) {
+        } else if (this.scenes[13].scene.position.z >= -0.02 && this.scenes[1].scene.position.z >= -0.03) {
             this.scenes[1].scene.position.z -= 2 * delta;
             this.scenes[14].scene.position.z -= 2.1 * delta;
             window.requestAnimationFrame(() => this.assemble());
 
-        }else if (this.scenes[1].scene.position.z < -0.02 && this.scenes[0].scene.position.y>-0.008+delta) {
+        } else if (this.scenes[1].scene.position.z < -0.02 && this.scenes[0].scene.position.y > -0.008 + delta) {
             this.scenes[0].scene.position.y -= delta;
             window.requestAnimationFrame(() => this.assemble());
 
         }
-        
+
     }
 
     animate() {
         if (this.requestFlag === 1) {
             window.requestAnimationFrame(() => this.animate());
         }
-        
+
         // requestAnimationFrame( animate );
         // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
