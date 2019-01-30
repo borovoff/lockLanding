@@ -170,14 +170,14 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
         const light = new THREE.PointLight(0xffffff, 2, 1000);
         light.position.set(100, 30, 100); // 100,10,0
-        const light1 = new THREE.PointLight(0xffffff, 3, 1000);
-        light1.position.set(-100, 10, 0); // -100,10,0
+        const light1 = new THREE.PointLight(0xffffff, 0.6, 1000);
+        light1.position.set(0, -100, 0); // -100,10,0
         const light2 = new THREE.PointLight(0xffffff, 0.2, 1000);
         light2.position.set(50, 0, -40); // -100,10,0
 
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
-        // this.lightHolder.add(light1);
+        this.lightHolder.add(light1);
         this.lightHolder.add(light2);
         this.scene.add(this.lightHolder);
 
