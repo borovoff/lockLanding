@@ -2,23 +2,19 @@
 <div id="mySidenav" class="sidenav">
         <a (click)="onClose()" >&times;</a>
         <li *ngFor="let item of items" style = "list-style-type: none;">
-            <a *ngIf="item.link !== false"
-               routerLink="{{item.link}}"
+            <a routerLink="{{item.link}}"
                routerLinkActive="active-link"
                [routerLinkActiveOptions]="{exact: true}">
                 {{item.name}}
             </a>
-            <a *ngIf="item.link === false" href="https://medium.com/tzar" target="_blank">{{item.name}}</a>
         </li>
 </div>
 <div class="navbar">
     <ul>
         <li *ngFor="let item of items">
-            <a *ngIf="item.link !== false"
-               routerLink="{{item.link}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="{{item.link}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                 {{item.name}}
             </a>
-            <a *ngIf="item.link === false" href="https://medium.com/tzar" target="_blank">{{item.name}}</a>
         </li>
     </ul>
 </div>

@@ -8,6 +8,10 @@ import {DownloadsComponent} from './downloads/downloads.component';
 
 const routes: Routes = [
     { path: '', component: MainComponent },
+    { path: 'blog', component: MainComponent,
+        resolve: {url: 'externalUrlRedirectResolver'},
+        data: {externalUrl: 'https://medium.com/tzar'}
+    },
     { path: 'lock', component: LockComponent },
     { path: 'contact', component: ContactComponent },
     { path: 'order', component: OrderComponent },
