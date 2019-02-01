@@ -9,7 +9,7 @@ import {NavigationEnd, Router} from '@angular/router';
 export class NavbarComponent {
 
     items = [
-        {name: 'Блог', link: '/blog'},
+        {name: 'Блог', link: false},
         {name: 'Связь', link: '/contact'},
         {name: 'Замок', link: '/lock'},
         {name: 'Загрузки', link: '/downloads'},
