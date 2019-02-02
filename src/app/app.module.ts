@@ -16,6 +16,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
+import { PixelSizeDirective } from './directive/pixel-size/pixel-size.directive';
 
 @NgModule({
     declarations: [
@@ -27,7 +28,8 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
         MainComponent,
         ContactComponent,
         OrderComponent,
-        DownloadsComponent
+        DownloadsComponent,
+        PixelSizeDirective
     ],
     imports: [
         BrowserModule,
