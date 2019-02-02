@@ -1,14 +1,8 @@
 $percent-height: 0.8;
-$image-height: $percent-height * 100vh;
 $font-size: 18px;
 $screen-width: calc(100vw - 16px);
-$navbar-indent: (50vh - $image-height / 2) / 2;
 $pixel-height: 3141;
 $pixel-width: 4625;
-
-$threejs-height: $percent-height * $pixel-height/$pixel-width * 100vw;
-$threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
-
 
 .container {
     z-index: 1;
@@ -18,8 +12,6 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
 
     top: 50%;
     left: 50%;
-    //transform: translate(-50%, -50%);
-    margin-left: -50%;
     max-width: calc(100% - 16px);
 
     width: $percent-height * $pixel-width/$pixel-height * 100vh;
