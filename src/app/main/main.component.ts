@@ -34,6 +34,7 @@ export class MainComponent {
     }
 
     setSize(event) {
+        console.log(event);
         this.size = {height: event.height, width: event.width};
     }
 }
