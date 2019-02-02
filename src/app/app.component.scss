@@ -12,7 +12,7 @@ $max-width: 1.02 * $threejs-width;
 
 
 .center-banner {
-    position: absolute;
+    position: fixed;
 
     width: $screen-width;
 
@@ -206,14 +206,14 @@ $max-width: 1.02 * $threejs-width;
   }
 
 app-bottom-navbar {
-    position: absolute;
+    position: fixed;
     width: $screen-width;
     margin-bottom: -$font-size/2;
     bottom: $navbar-indent;
 }
 
 app-navbar {
-    position: absolute;
+    position: fixed;
     width: $screen-width;
     top: $navbar-indent;
     margin-top: -$font-size/2;

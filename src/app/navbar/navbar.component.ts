@@ -9,14 +9,14 @@ import {NavigationEnd, Router} from '@angular/router';
 export class NavbarComponent {
 
     items = [
-        {name: 'Блог', link: '/blog'},
-        {name: 'Связь', link: '/contact'},
-        {name: 'Замок', link: '/lock'},
-        {name: 'Загрузки', link: '/downloads'},
-        {name: 'Предзаказ', link: '/order'}
+        {name: 'Блог', link: '/blog', target: '_blank'},
+        {name: 'Связь', link: '/contact', target: '_self'},
+        {name: 'Замок', link: '/lock', target: '_self'},
+        {name: 'Загрузки', link: '/downloads', target: '_self'},
+        {name: 'Предзаказ', link: '/order', target: '_self'}
     ];
 
-    mainItem = {name: 'Главная', link: ''};
+    mainItem = {name: 'Главная', link: '', target: '_self'};
 
     constructor(private router: Router) {
         router.events.subscribe((val) => {

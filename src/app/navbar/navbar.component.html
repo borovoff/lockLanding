@@ -4,6 +4,7 @@
         <li *ngFor="let item of items" style = "list-style-type: none;">
             <a routerLink="{{item.link}}"
                routerLinkActive="active-link"
+               target="{{item.target}}"
                [routerLinkActiveOptions]="{exact: true}">
                 {{item.name}}
             </a>
@@ -12,7 +13,7 @@
 <div class="navbar">
     <ul>
         <li *ngFor="let item of items">
-            <a routerLink="{{item.link}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
+            <a routerLink="{{item.link}}" target="{{item.target}}" routerLinkActive="active-link" [routerLinkActiveOptions]="{exact: true}">
                 {{item.name}}
             </a>
         </li>
