@@ -9,7 +9,6 @@ export class MainComponent {
     imgHidden = false;
     frameHidden = true;
     modelHidden = true;
-    size = {height: 0, width: 0};
 
     onNotify(item) {
         switch (item) {
@@ -31,10 +30,5 @@ export class MainComponent {
             default:
                 break;
         }
-    }
-
-    setSize(event) {
-        console.log(event);
-        this.size = {height: event.height, width: event.width};
     }
 }

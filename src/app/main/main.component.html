@@ -1,9 +1,7 @@
-<div appPixelSize (size)="setSize($event)" class="container">
+<div appPixelSize class="container">
     <img [hidden]="imgHidden" src="assets/images/carousel_black_new.jpg" alt="tzarLock">
 
     <iframe *ngIf="!frameHidden"
-            width="1000px"
-            height="600px"
             src="https://www.youtube.com/embed/9gXVjCm82pM?rel=0&modestbranding=1"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
