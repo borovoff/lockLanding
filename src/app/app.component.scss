@@ -34,8 +34,8 @@ $threejs-width: $percent-height * $pixel-width/$pixel-height * 100vh;
         position: absolute;
     }
     iframe {
-        width: 100%;
-        height: 100%;
+        //width: 100%;
+        //height: 100%;
     }
     app-threejs {
         width: 100%;
