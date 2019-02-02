@@ -1,9 +1,10 @@
-import {Directive, ElementRef, OnInit} from '@angular/core';
+import {Directive, ElementRef, EventEmitter, OnInit, Output} from '@angular/core';
 
 @Directive({
     selector: '[appPixelSize]'
 })
 export class PixelSizeDirective implements OnInit {
+    @Output() size = new EventEmitter<any>();
 
     constructor(private el: ElementRef) { }
 
@@ -11,7 +12,6 @@ export class PixelSizeDirective implements OnInit {
         const height = this.el.nativeElement.clientHeight;
         const width = this.el.nativeElement.clientWidth;
 
-        this.el.nativeElement.style.height = height;
-        this.el.nativeElement.style.width = width;
+        this.size.emit({height: height, width: width});
     }
 }
