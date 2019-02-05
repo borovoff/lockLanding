@@ -32,6 +32,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     fontLoader;
     textMesh;
     requestFlag;
+    manager;
     folders = [
          new Folder('arcAsm',
              new Moving(new Vector3(0, - 0.008, +0.011), new Euler(0, - Math.PI * 0.5)), [
@@ -189,6 +190,34 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.camera.position.y = 5;
         console.log(this.camera.position);
 
+        this.manager = new THREE.LoadingManager();
+        this.manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
+
+            console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+
+        };
+
+        this.manager.onLoad = function ( ) {
+
+            console.log( 'Loading complete!');
+            this.animate();
+
+        }.bind(this);
+
+
+        this.manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
+
+            console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
+
+        };
+
+        this.manager.onError = function ( url ) {
+
+            console.log( 'There was an error loading ' + url );
+
+        };
+
+
         this.loadingCompleted = this.loadingCompleted.bind(this);
         this.i = 0;
         this.load();
@@ -228,7 +257,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     }
 
     load() {
-        this.loader = new THREE.GLTFLoader();
+        this.loader = new THREE.GLTFLoader(this.manager);
         const folder = this.folders[this.i].name;
         const fullPath = this.path + folder + '.glb';
         this.loader.load(fullPath, this.loadingCompleted);
@@ -242,7 +271,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.setView();
         this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
         this.requestFlag = 1;
-        this.animate();
+        //this.animate();
     }
 
     ngOnDestroy() {
