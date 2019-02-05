@@ -18,10 +18,7 @@ export class PixelSizeDirective implements OnInit {
     set() {
         const el = this.el.nativeElement;
 
-        const height = el.clientHeight;
-        const width = el.clientWidth;
-
-        el.style.marginLeft = - width / 2 + 'px';
-        el.style.marginTop = - height / 2 + 'px';
+        el.style.marginLeft = - el.clientWidth / 2 + 'px';
+        el.style.marginTop = - el.clientHeight / 2 + 'px';
     }
 }

@@ -8,19 +8,21 @@ import {DomSanitizer} from '@angular/platform-browser';
     styleUrls: ['../app.component.scss']
 })
 export class ContactComponent {
+    contacts = [
+        {name: 'bike.tzar', href: 'https://instagram.com/bike.tzar', svgIcon: 'instagram'},
+        {name: 'bike.tzar', href: 'https://vk.com/bike.tzar', svgIcon: 'vk'},
+        {name: 'tzarsharing@gmail.com', href: 'mailto:tzarsharing@gmail.com', svgIcon: 'mail'},
+        {name: 'biketzar', href: 'https://t.me/biketzar', svgIcon: 'telegram'},
+    ];
+
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
         const path = 'assets/images/';
-        this.matIconRegistry.addSvgIcon(
-            'instagram',
-            this.domSanitizer.bypassSecurityTrustResourceUrl(path + 'instagram.svg')
-        );
-        this.matIconRegistry.addSvgIcon(
-            'telegram',
-            this.domSanitizer.bypassSecurityTrustResourceUrl(path + 'telegram.svg')
-        );
-        this.matIconRegistry.addSvgIcon(
-            'vk',
-            this.domSanitizer.bypassSecurityTrustResourceUrl(path + 'vk.svg')
-        );
+
+        for (const contact of this.contacts) {
+            this.matIconRegistry.addSvgIcon(
+                contact.svgIcon,
+                this.domSanitizer.bypassSecurityTrustResourceUrl(path + contact.svgIcon + '.svg')
+            );
+        }
     }
 }

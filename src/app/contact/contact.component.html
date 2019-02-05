@@ -1,25 +1,15 @@
 
 <div class="wrapper" style = "padding-top: 10px">
-<ul class="contact" style="list-style: none">
-    <li>
-        <a href="https://vk.com/bike.tzar" target="_blank" style = "text-decoration: none; color: black">
-            <mat-icon svgIcon="vk">vk</mat-icon>
-            bike.tzar</a>
-    </li>
-    <li>
-        <a href="https://t.me/biketzar" target="_blank" style = "text-decoration: none; color: black">
-            <mat-icon svgIcon="telegram">telegram</mat-icon>
-            bike.tzar</a>
-    </li>
-    <li>
-        <a href="https://instagram.com/bike.tzar" target="_blank" style = "text-decoration: none; color: black">
-            <mat-icon svgIcon="instagram"></mat-icon>
-            bike.tzar</a>
-    </li>
-    <li>
-        <a href="mailto:tzarsharing@gmail.com" style = "text-decoration: none; color: black">
-            <mat-icon>mail</mat-icon>
-            tzarsharing@gmail.com</a>
-    </li>
-</ul>
+    <ul class="contact" style="list-style: none">
+        <li *ngFor="let contact of contacts">
+            <a href="{{contact.href}}"
+               [ngSwitch]="contact.svgIcon"
+               target="_blank" style = "text-decoration: none; color: black">
+                <mat-icon *ngSwitchCase="'mail'" >mail</mat-icon>
+                <mat-icon *ngSwitchDefault
+                          svgIcon="{{contact.svgIcon}}"></mat-icon>
+                {{contact.name}}
+            </a>
+        </li>
+    </ul>
 </div>
