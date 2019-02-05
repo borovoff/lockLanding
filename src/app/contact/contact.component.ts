@@ -9,10 +9,10 @@ import {DomSanitizer} from '@angular/platform-browser';
 })
 export class ContactComponent {
     contacts = [
-        {name: 'bike.tzar', href: 'https://instagram.com/bike.tzar', svgIcon: 'instagram'},
-        {name: 'bike.tzar', href: 'https://vk.com/bike.tzar', svgIcon: 'vk'},
+        {name: 'lock.tzar', href: 'https://instagram.com/lock.tzar', svgIcon: 'instagram'},
+        {name: 'lock.tzar', href: 'https://vk.com/lock.tzar', svgIcon: 'vk'},
         {name: 'tzarsharing@gmail.com', href: 'mailto:tzarsharing@gmail.com', svgIcon: 'mail'},
-        {name: 'biketzar', href: 'https://t.me/biketzar', svgIcon: 'telegram'},
+        {name: 'lock.tzar', href: 'https://t.me/lock.tzar', svgIcon: 'telegram'},
     ];
 
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
