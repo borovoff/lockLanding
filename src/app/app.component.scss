@@ -36,6 +36,16 @@ $pixel-width: 4625;
     }
 }
 
+#info {
+    opacity: 0.7;
+    font-family:Arial, Helvetica, sans-serif;
+    color:white;
+    position:absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: small;
+}
+
 .navbar {
     font-family: Helvetica, serif;
     ul {

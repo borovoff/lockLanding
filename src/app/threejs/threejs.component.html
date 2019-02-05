@@ -1,2 +1,2 @@
-<div id="info" style="opacity: 0.5;font-family:Arial, Helvetica, sans-serif; color:white; position:absolute; left: 50%; transform: translateX(-50%); font-size: small"> <br> Enter — разобрать</div>
+<div id="info" *ngIf="loaded"> <br> {{command}}</div>
 <div class="renderer-container" #rendererContainer></div>

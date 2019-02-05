@@ -29,8 +29,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     urls;
     background;
     lightHolder;
-    fontLoader;
-    textMesh;
+    loaded = false;
+    work = false;
+    command = 'Пробел — разобрать';
     requestFlag;
     manager;
     folders = [
@@ -188,36 +189,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.camera.position.z = 10;
         this.camera.position.x = 10;
         this.camera.position.y = 5;
-        console.log(this.camera.position);
 
         this.manager = new THREE.LoadingManager();
-        this.manager.onStart = function ( url, itemsLoaded, itemsTotal ) {
-
-            console.log( 'Started loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-
-        };
-
-        this.manager.onLoad = function ( ) {
-
-            console.log( 'Loading complete!');
-            this.animate();
-
-        }.bind(this);
-
-
-        this.manager.onProgress = function ( url, itemsLoaded, itemsTotal ) {
-
-            console.log( 'Loading file: ' + url + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.' );
-
-        };
-
-        this.manager.onError = function ( url ) {
-
-            console.log( 'There was an error loading ' + url );
-
-        };
-
-
+        this.manager.onLoad = this.onLoad.bind(this);
         this.loadingCompleted = this.loadingCompleted.bind(this);
         this.i = 0;
         this.load();
@@ -226,6 +200,10 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.controls.center.z = 0.07;
         this.controls.center.y = 0.08;
         this.controls.update();
+    }
+
+    onLoad() {
+        this.loaded = true;
     }
 
     loadingCompleted(gltf) {
@@ -271,40 +249,29 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.setView();
         this.rendererContainer.nativeElement.appendChild(this.renderer.domElement);
         this.requestFlag = 1;
-        //this.animate();
+        this.animate();
     }
 
     ngOnDestroy() {
-        // console.log('destroy');
         // Following to RAM measuremebts in Chrome ram is released by deleting scenes. But on forums they say that it's neccecary to remove
         // all objects
         // TO DO remove all info of objects via function from forum disposeHierarchy (3dobject, disposeNode)
         this.requestFlag = 0;
         for (let j = 0; j < this.scenes.length; j++) {
-
-            // this.disposeHierarchy(this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name), this.disposeNode);
-            // this.disposeNode(this.folders[j].visuals[i].name);
-            // this.scenes[j].scene.getObjectByName(this.folders[j].visuals[i].name).traverse( function(node) {
             this.scenes[j].scene.children[0].traverse( function(node) {
-
                 if (node instanceof THREE.Mesh) {
                     if (node.geometry) {
                         node.geometry.dispose ();
                     }
+                    if (node.material && node.material instanceof THREE.MeshStandardMaterial) {
+                        if (node.material.map) {          node.material.map.dispose (); }
+                        if (node.material.lightMap) {     node.material.lightMap.dispose (); }
+                        if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
+                        if (node.material.normalMap) {    node.material.normalMap.dispose (); }
+                        // if (node.material.specularMap)  node.material.specularMap.dispose ();
+                        if (node.material.envMap) {       node.material.envMap.dispose (); }
 
-                    if (node.material) {
-                        if (node.material instanceof THREE.MeshStandardMaterial) {
-
-                            if (node.material.map) {          node.material.map.dispose (); }
-                            if (node.material.lightMap) {     node.material.lightMap.dispose (); }
-                            if (node.material.bumpMap) {      node.material.bumpMap.dispose (); }
-                            if (node.material.normalMap) {    node.material.normalMap.dispose (); }
-                            // if (node.material.specularMap)  node.material.specularMap.dispose ();
-                            if (node.material.envMap) {       node.material.envMap.dispose (); }
-
-                            node.material.dispose ();   // disposes any programs associated with the material
-                            // console.log('destroy');
-                        }
+                        node.material.dispose();   // disposes any programs associated with the material
                     }
                 }
             });
@@ -324,13 +291,19 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
 
     @HostListener('window:keydown', ['$event'])
     onKeyDown(event) {
-        if (event.key === 'Enter') {
-            this.expand();
-            document.getElementById('info').innerHTML = '<br> Esc — собрать';
-        }
-        if (event.key === 'Escape') {
-            this.assemble();
-            document.getElementById('info').innerHTML = '<br> Enter — разобрать';
+        if (this.loaded && !this.work) {
+            switch (event.code) {
+                case 'Space':
+                    this.work = true;
+                    this.expand();
+                    break;
+                case 'Escape':
+                    this.work = true;
+                    this.assemble();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -362,6 +335,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             this.scenes[7].scene.position.y -= 0.4 * delta;
             this.scenes[13].scene.position.z -= delta;
             window.requestAnimationFrame(() => this.expand());
+        } else {
+            this.work = false;
+            this.command = 'Esc — собрать';
         }
 
         if (this.scenes[9].scene.position.y <= -0.08 && this.scenes[7].scene.position.y >= -0.05 ) {
@@ -386,13 +362,13 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             this.scenes[1].scene.position.z -= 2 * delta;
             this.scenes[14].scene.position.z -= 2.1 * delta;
             window.requestAnimationFrame(() => this.assemble());
-
         } else if (this.scenes[1].scene.position.z < -0.02 && this.scenes[0].scene.position.y > -0.008 + delta) {
             this.scenes[0].scene.position.y -= delta;
             window.requestAnimationFrame(() => this.assemble());
-
+        } else {
+            this.work = false;
+            this.command = 'Пробел — разобрать';
         }
-
     }
 
     animate() {
@@ -400,8 +376,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
             window.requestAnimationFrame(() => this.animate());
         }
 
-        // requestAnimationFrame( animate );
-        // this.modelScene.position.x += 0.0005;
         this.renderer.render(this.scene, this.camera);
         this.lightHolder.quaternion.copy(this.camera.quaternion);
     }
