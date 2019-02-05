@@ -12,7 +12,7 @@ export class ContactComponent {
         {name: 'lock.tzar', href: 'https://instagram.com/lock.tzar', svgIcon: 'instagram'},
         {name: 'lock.tzar', href: 'https://vk.com/lock.tzar', svgIcon: 'vk'},
         {name: 'tzarsharing@gmail.com', href: 'mailto:tzarsharing@gmail.com', svgIcon: 'mail'},
-        {name: 'lock.tzar', href: 'https://t.me/lock.tzar', svgIcon: 'telegram'},
+        {name: 'locktzar', href: 'https://t.me/locktzar', svgIcon: 'telegram'},
     ];
 
     constructor(private matIconRegistry: MatIconRegistry, private domSanitizer: DomSanitizer) {
