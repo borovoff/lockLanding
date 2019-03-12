@@ -1,12 +1,11 @@
-
-<div style = "padding-top: 30px" class="order-wrapper">
-    <table align="center" style = "table-layout: fixed ; width: 100% ;">
+<div class="order-wrapper">
+    <table align="center">
             <tr>
-                <th style = "text-align: center;font-size: 20px; width: 25% ;">Lite</th>
-                <th style = "text-align: center;font-size: 20px; width: 25% ;">Super</th>
+                <th class="table-header">Lite</th>
+                <th class="table-header">Super</th>
             </tr>
             <tr>    
-                <td style="text-align: left;" colspan="2"> 
+                <td class="table-content" colspan="2" i18n>
                     Bluetooth 4.2 <br> 
                     Дуга и корпус: закаленная сталь <br> 
                     Рама: алюминий <br>
@@ -17,7 +16,7 @@
             </tr>
             <tr> 
                 <td>—</td>
-                <td style="text-align: left;">IoT 2G модуль <br>
+                <td class="table-content" i18n>IoT 2G модуль <br>
                     Чувствительное покрытие <br>
                     Акселерометр 
                 </td>
@@ -28,30 +27,34 @@
             <!--</tr>-->
     </table>
 
-    <p>Цена и возможность заказать замок появятся после достижения договоренностей с фабриками о массовом производстве.</p>
+    <p i18n>Цена и возможность заказать замок появятся после достижения договоренностей с фабриками о массовом производстве.</p>
 
-    <p>Оставьте контакты, чтобы получить замок первым.</p>
+    <p i18n>Оставьте контакты, чтобы получить замок первым.</p>
 
     <div class="example-container">
         <mat-form-field>
-            <input matInput placeholder="Имя" [(ngModel)]="name" >
+            <input i18n matInput placeholder="Имя" [(ngModel)]="name" >
         </mat-form-field>
         <mat-form-field>
-            <input matInput placeholder="Email" [(ngModel)]="mail">
+            <input i18n matInput placeholder="Mail" [(ngModel)]="mail">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput placeholder="Телефон" [(ngModel)]="phone" >
+            <input i18n matInput placeholder="Телефон" [(ngModel)]="phone" >
         </mat-form-field>
 
-        <p *ngIf="sended">
-            Данные отправлены.
-        </p>
-        <p *ngIf="error">
-            Не заполнено одно из полей.
-        </p>
+        <mat-progress-bar *ngIf="status === OrderStatus.Sending" mode="buffer"></mat-progress-bar>
 
-        <button class="order-button" (click)="send()">Отправить</button>
+        <div *ngIf="status === OrderStatus.Sended">
+            <p i18n *ngIf="success">
+                Данные отправлены.
+            </p>
+            <p i18n *ngIf="!success">
+                {{error}}
+            </p>
+        </div>
+
+        <button i18n class="order-button" (click)="send()">Отправить</button>
 
     </div>
 </div>

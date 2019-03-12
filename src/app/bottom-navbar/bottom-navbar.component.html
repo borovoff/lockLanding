@@ -1,7 +1,10 @@
 <div class="bottom-navbar">
     <ul>
         <li *ngFor="let item of items">
-            <a (click)="change(item)" href="#">
+            <a
+                    (click)="change(item)"
+                    i18n
+                    href="#">
                 {{item}}
             </a>
         </li>

@@ -6,14 +6,16 @@ import {ErrorStateMatcher} from '@angular/material/core';
 @Component({
     selector: 'app-order',
     templateUrl: './order.component.html',
-    styleUrls: ['../app.component.scss']
+    styleUrls: ['./order.component.scss']
 })
 export class OrderComponent {
     name = '';
     mail = '';
     phone = '';
-    sended = false;
-    error = false;
+    success = false;
+    error = '';
+    OrderStatus = OrderStatus;
+    status = OrderStatus.Prepare;
 
     emailFormControl = new FormControl('', [
         Validators.required,
@@ -28,19 +30,44 @@ export class OrderComponent {
         const url = 'https://sharing.tzar.su/rest/user/addmail?name=' + this.name + '&mail=' +
             this.mail + '&phone=' + this.phone;
 
-        console.log(url);
+        this.status = OrderStatus.Sending;
 
-        this.http.get(url).subscribe((res) => {
-            if (res['result']) {
-                this.sended = true;
-                this.error = false;
-            } else {
-                this.sended = false;
-                this.error = true;
+        this.http.get<OrderResponse>(url).subscribe(res => {
+            this.status = OrderStatus.Sended;
+            this.success = res.result;
+            const error = res.error;
+            let stringError = '';
+            if (error) {
+                Object.keys(error).forEach(key => {
+                    stringError += this.getString(error[key]);
+                });
             }
-            console.log(res);
+            this.error = stringError;
+
+            console.log('error', res);
         });
     }
+
+    getString(field?: string[]) {
+        return field ? field[0] + ' ' : '';
+    }
+}
+
+export enum OrderStatus {
+    Prepare,
+    Sending,
+    Sended
+}
+
+export class OrderResponse {
+    result: boolean;
+    error: ErrorFields;
+}
+
+export class ErrorFields {
+    mail?: string[];
+    name?: string[];
+    phone?: string[];
 }
 
 /** Error when invalid control is dirty, touched, or submitted. */

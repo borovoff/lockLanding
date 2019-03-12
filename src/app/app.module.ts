@@ -11,7 +11,7 @@ import {MainComponent} from './main/main.component';
 import {ContactComponent} from './contact/contact.component';
 import {OrderComponent} from './order/order.component';
 import {DownloadsComponent} from './downloads/downloads.component';
-import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule} from '@angular/material';
+import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressBarModule} from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -41,7 +41,8 @@ import { PixelSizeDirective } from './directive/pixel-size/pixel-size.directive'
         BrowserAnimationsModule,
         MatButtonModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MatProgressBarModule
     ],
     providers: [{
         provide: 'externalUrlRedirectResolver',
