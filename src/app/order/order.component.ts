@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {FormControl, FormGroupDirective, NgForm, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material/core';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-order',
@@ -17,6 +18,9 @@ export class OrderComponent {
     OrderStatus = OrderStatus;
     status = OrderStatus.Prepare;
 
+    placeholder = {name: '', phone: ''};
+
+
     emailFormControl = new FormControl('', [
         Validators.required,
         Validators.email,
@@ -24,7 +28,11 @@ export class OrderComponent {
 
     matcher = new MyErrorStateMatcher();
 
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient,
+                private translate: TranslateService) {
+        translate.get('order.name').subscribe(res => this.placeholder.name = res);
+        translate.get('order.phone').subscribe(res => this.placeholder.phone = res);
+    }
 
     send() {
         const url = 'https://sharing.tzar.su/rest/user/addmail?name=' + this.name + '&mail=' +

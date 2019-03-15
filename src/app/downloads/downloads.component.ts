@@ -3,7 +3,7 @@ import {Component} from '@angular/core';
 @Component({
     selector: 'app-downloads',
     templateUrl: './downloads.component.html',
-    styleUrls: ['../app.component.scss']
+    styleUrls: ['./downloads.component.scss']
 })
 export class DownloadsComponent {
 

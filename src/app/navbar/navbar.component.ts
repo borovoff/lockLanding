@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-navbar',
@@ -9,16 +10,18 @@ import {NavigationEnd, Router} from '@angular/router';
 export class NavbarComponent {
 
     items = [
-        {name: 'Блог', link: 'https://medium.com/tzar', target: '_blank'},
-        {name: 'Связь', link: '/contact', target: '_self'},
-        {name: 'Замок', link: '/lock', target: '_self'},
-        {name: 'Загрузки', link: '/downloads', target: '_self'},
-        {name: 'Предзаказ', link: '/order', target: '_self'}
+        {name: 'navbar.blog', link: 'https://medium.com/tzar', target: '_blank'},
+        {name: 'navbar.contact', link: '/contact', target: '_self'},
+        {name: 'navbar.lock', link: '/lock', target: '_self'},
+        {name: 'navbar.downloads', link: '/downloads', target: '_self'},
+        {name: 'navbar.order', link: '/order', target: '_self'}
     ];
 
-    mainItem = {name: 'Главная', link: '', target: '_self'};
+    mainItem = {name: 'navbar.home', link: '', target: '_self'};
+    Languages = Languages;
 
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private translate: TranslateService) {
         router.events.subscribe((val) => {
             if (val instanceof NavigationEnd) {
                 if (val.url !== '/') {
@@ -41,4 +44,13 @@ export class NavbarComponent {
     onClose() {
         document.getElementById('mySidenav').style.width = '0';
     }
+
+    switchLanguge(language: string) {
+        this.translate.use(language);
+    }
+}
+
+export enum Languages {
+    English = 'en',
+    Russian = 'ru'
 }

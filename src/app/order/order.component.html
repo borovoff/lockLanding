@@ -5,21 +5,17 @@
                 <th class="table-header">Super</th>
             </tr>
             <tr>    
-                <td class="table-content" colspan="2" i18n>
-                    Bluetooth 4.2 <br> 
-                    Дуга и корпус: закаленная сталь <br> 
-                    Рама: алюминий <br>
-                    Декоративное покрытие: полиолефин <br>
-                    Диаметр дуги: 18 мм <br>
-                    Охватываемое пространство: 10 на 16 см
+                <td
+                        class="table-content"
+                        [innerHTML]="'order.same' | translate"
+                        colspan="2">
                 </td>  
             </tr>
             <tr> 
                 <td>—</td>
-                <td class="table-content" i18n>IoT 2G модуль <br>
-                    Чувствительное покрытие <br>
-                    Акселерометр 
-                </td>
+                <td
+                        class="table-content"
+                        [innerHTML]="'order.difference' | translate"></td>
             </tr>
             <!--<tr style="background-color: white">-->
                 <!--<td style = "text-align: center; border: none;padding: 0px;"><button class="order-button">Заказать</button></td> -->
@@ -27,34 +23,34 @@
             <!--</tr>-->
     </table>
 
-    <p i18n>Цена и возможность заказать замок появятся после достижения договоренностей с фабриками о массовом производстве.</p>
+    <p>{{'order.price' | translate}}</p>
 
-    <p i18n>Оставьте контакты, чтобы получить замок первым.</p>
+    <p>{{'order.contact' | translate}}</p>
 
     <div class="example-container">
         <mat-form-field>
-            <input i18n matInput placeholder="Имя" [(ngModel)]="name" >
+            <input matInput placeholder="{{'order.name' | translate}}" [(ngModel)]="name" >
         </mat-form-field>
         <mat-form-field>
-            <input i18n matInput placeholder="Mail" [(ngModel)]="mail">
+            <input matInput placeholder="Mail" [(ngModel)]="mail">
         </mat-form-field>
 
         <mat-form-field>
-            <input i18n matInput placeholder="Телефон" [(ngModel)]="phone" >
+            <input matInput [placeholder]="placeholder.phone" [(ngModel)]="phone" >
         </mat-form-field>
 
         <mat-progress-bar *ngIf="status === OrderStatus.Sending" mode="buffer"></mat-progress-bar>
 
         <div *ngIf="status === OrderStatus.Sended">
-            <p i18n *ngIf="success">
-                Данные отправлены.
+            <p *ngIf="success">
+                {{'order.successSending' | translate}}
             </p>
-            <p i18n *ngIf="!success">
+            <p *ngIf="!success">
                 {{error}}
             </p>
         </div>
 
-        <button i18n class="order-button" (click)="send()">Отправить</button>
+        <button class="order-button" (click)="send()">{{'order.send' | translate}}</button>
 
     </div>
 </div>

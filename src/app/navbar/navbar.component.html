@@ -7,13 +7,13 @@
         <a *ngSwitchCase="'_blank'"
            [href]="item.link"
            [target]="item.target">
-            {{item.name}}
+            {{item.name | translate}}
         </a>
         <a *ngSwitchDefault
            routerLink="{{item.link}}"
            routerLinkActive="active-link"
            [routerLinkActiveOptions]="{exact: true}">
-            {{item.name}}
+            {{item.name | translate}}
         </a>
     </li>
 </div>
@@ -23,14 +23,17 @@
             <a *ngSwitchCase="'_blank'"
                [href]="item.link"
                [target]="item.target">
-                {{item.name}}
+                {{item.name | translate}}
             </a>
             <a *ngSwitchDefault
                routerLink="{{item.link}}"
                routerLinkActive="active-link"
                [routerLinkActiveOptions]="{exact: true}">
-                {{item.name}}
+                {{item.name | translate}}
             </a>
+        </li>
+        <li>
+            <a class="clickable" (click)="switchLanguge(Languages.English)">en</a> | <a class="clickable" (click)="switchLanguge(Languages.Russian)">рус</a>
         </li>
     </ul>
 </div>

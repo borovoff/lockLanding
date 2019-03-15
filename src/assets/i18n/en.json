@@ -1,0 +1,36 @@
+{
+    "HOME": {
+        "TITLE": "Hello Angular with ngx-translate!",
+        "SELECT": "Change language"
+    },
+    "bottomNavbar": {
+        "inside": "Inside",
+        "photo": "Photo",
+        "video": "Video"
+    },
+    "navbar": {
+        "home": "Home",
+        "blog": "Blog",
+        "contact": "Contact",
+        "lock": "Lock",
+        "downloads": "Downloads",
+        "order": "Preorder"
+    },
+    "order": {
+        "same": "Bluetooth 4.2 <br> Arc and body: hardened steel <br> Body: aluminium <br> Surface covering: polyolefin <br> Arc diameter: 18 mm <br> Space inside shackle: 10 x 16 cm",
+        "difference": "IoT 2G module <br> Sensitive cover <br> Accelerometer",
+        "price": "You can order as soon as we reach agreement about mass production.",
+        "contact": "To get the lock first fill the contacts.",
+        "name": "Name",
+        "phone": "Phone",
+        "successSending": "Successfully sent.",
+        "send": "Send"
+    },
+    "three": {
+        "assemble": "Esc — assemble",
+        "disassemble": "Space — disassemble"
+    },
+    "contact": {
+        "app": "Apps will be available as soon as production completes. For testing purpose please write to "
+    }
+}

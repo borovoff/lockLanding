@@ -12,11 +12,17 @@ import {ContactComponent} from './contact/contact.component';
 import {OrderComponent} from './order/order.component';
 import {DownloadsComponent} from './downloads/downloads.component';
 import {MatButtonModule, MatFormFieldModule, MatIconModule, MatInputModule, MatProgressBarModule} from '@angular/material';
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { PixelSizeDirective } from './directive/pixel-size/pixel-size.directive';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+
+export function HttpLoaderFactory(httpClient: HttpClient) {
+    return new TranslateHttpLoader(httpClient);
+}
 
 @NgModule({
     declarations: [
@@ -42,7 +48,14 @@ import { PixelSizeDirective } from './directive/pixel-size/pixel-size.directive'
         MatButtonModule,
         FormsModule,
         ReactiveFormsModule,
-        MatProgressBarModule
+        MatProgressBarModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     providers: [{
         provide: 'externalUrlRedirectResolver',

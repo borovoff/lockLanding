@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {BottomNavbar} from '../bottom-navbar/bottom-navbar.component';
 
 @Component({
     selector: 'app-main',
@@ -12,17 +13,17 @@ export class MainComponent {
 
     onNotify(item) {
         switch (item) {
-            case 'Видео':
+            case BottomNavbar.Video:
                 this.frameHidden = false;
                 this.imgHidden = true;
                 this.modelHidden = true;
                 break;
-            case 'Фото':
+            case BottomNavbar.Photo:
                 this.imgHidden = false;
                 this.frameHidden = true;
                 this.modelHidden = true;
                 break;
-            case 'Нутро':
+            case BottomNavbar.Inside:
                 this.imgHidden = true;
                 this.frameHidden = true;
                 this.modelHidden = false;

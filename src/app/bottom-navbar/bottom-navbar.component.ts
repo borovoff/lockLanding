@@ -8,12 +8,12 @@ import {Component, EventEmitter, Output} from '@angular/core';
 export class BottomNavbarComponent {
     @Output() notify = new EventEmitter<any>();
 
-    items = ['Видео'];
-    currentItem = 'Фото';
+    items = [BottomNavbar.Video];
+    currentItem = BottomNavbar.Photo;
 
     constructor() {
         if (!this.detectmob()) {
-            this.items.push('Нутро');
+            this.items.push(BottomNavbar.Inside);
         }
     }
 
@@ -40,4 +40,10 @@ export class BottomNavbarComponent {
             return false;
         }
     }
+}
+
+export enum BottomNavbar {
+    Video = 'bottomNavbar.video',
+    Photo = 'bottomNavbar.photo',
+    Inside = 'bottomNavbar.inside'
 }

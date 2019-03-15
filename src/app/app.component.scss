@@ -76,6 +76,10 @@ $pixel-width: 4625;
                 }
             }
 
+            .clickable {
+                cursor: pointer;
+            }
+
             a:hover {
                 text-decoration: underline;
             }
@@ -206,20 +210,6 @@ app-navbar {
         mat-icon {
             position: relative;
             top: 5px;
-        }
-    }
-
-    .icon-appstore {
-        img {
-            height: 50px;
-            margin: 10px;
-        }
-    }
-
-    .icon-googleplay {
-        img {
-            height: 70px;
-            border: 0;
         }
     }
 
