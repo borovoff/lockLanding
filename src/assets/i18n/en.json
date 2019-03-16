@@ -32,5 +32,31 @@
     },
     "contact": {
         "app": "Apps will be available as soon as production completes. For testing purpose please write to "
+    },
+    "lock": {
+        "smart": {
+            "h": "Smart",
+            "p": "<li> Bluetooth control </li> <li>Accelerometer and temperature sensors </li> <li> 10000 open/close or 2 years in standby </li>"
+        },
+        "highSecure": {
+            "h": "High secure",
+            "p": "<li> It blocks 2 ends of the shackle </li> <li> Hardened steel </li> <li> Sensitive cover. If it’s damaged you’ll be notified </li>"
+        },
+        "share": {
+            "h": "How to share your bike",
+            "p": "<li> Register in app, attach your bank card and sign contract. Detailed information will appear after crowdfunding campaign </li> <li> In app make parking zones, where you’d like users to leave bike after riding </li> <li> In app change your lock from own to shared </li> <li> Wait for rental money </li>"
+        },
+        "rent": {
+            "h": "How to rent bike",
+            "p": "<li> In app buy minutes </li> <li> Find suitable bike on the map </li> <li> Enable bluetooth, press camera icon and scan QR-code </li> <li> Press button on the lock for 1-2 seconds. You should take notification in app and lock should open </li> <li> You can park your bike while riding. Park bike and press lock button - lock will close but riding won’t end </li>"
+        },
+        "end": {
+            "h": "How to end riding",
+            "p": "<li> Enable bluetooth, press camera icon and scan QR-code </li> <li> Park bike and press lock button - lock will close and riding will end </li>"
+        },
+        "restrictions": {
+            "h": "Restrictions",
+            "p": "We do not recommend to use lock at temperatures below zero: accumulator can freeze and lock block."
+        }
     }
 }
