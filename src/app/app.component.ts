@@ -21,7 +21,12 @@ export class AppComponent {
         translate.addLangs(['en', 'ru']);
         translate.setDefaultLang('en');
 
-        const browserLang = translate.getBrowserLang();
-        translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
+        let lang = localStorage.getItem('lang');
+        if (!lang) {
+            const browserLang = translate.getBrowserLang();
+            lang = browserLang.match(/en|ru/) ? browserLang : 'en';
+            localStorage.setItem('lang', lang);
+        }
+        translate.use(lang);
     }
 }
