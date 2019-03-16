@@ -1,21 +1,27 @@
-<div class="burger-navbar" style="font-size:25px;cursor:pointer;" (click)="onClickMe()">&#9776;</div>
+<div class="burger-navbar" (click)="onClickMe()">&#9776;</div>
 <div id="mySidenav" class="sidenav">
-    <a (click)="onClose()" >&times;</a>
-    <li *ngFor="let item of items"
-        style = "list-style-type: none;"
-        [ngSwitch]="item.target">
-        <a *ngSwitchCase="'_blank'"
-           [href]="item.link"
-           [target]="item.target">
-            {{item.name | translate}}
-        </a>
-        <a *ngSwitchDefault
-           routerLink="{{item.link}}"
-           routerLinkActive="active-link"
-           [routerLinkActiveOptions]="{exact: true}">
-            {{item.name | translate}}
-        </a>
-    </li>
+    <ul>
+        <a class="clickable" (click)="onClose()" >&times;</a>
+        <li *ngFor="let item of items"
+            style = "list-style-type: none;"
+            [ngSwitch]="item.target">
+            <a *ngSwitchCase="'_blank'"
+               [href]="item.link"
+               [target]="item.target">
+                {{item.name | translate}}
+            </a>
+            <a *ngSwitchDefault
+               routerLink="{{item.link}}"
+               routerLinkActive="active-link"
+               [routerLinkActiveOptions]="{exact: true}">
+                {{item.name | translate}}
+            </a>
+        </li>
+        <li class="li-row">
+            <a class="clickable" (click)="switchLanguge(Languages.English)">en</a> | <a class="clickable" (click)="switchLanguge(Languages.Russian)">рус</a>
+        </li>
+    </ul>
+
 </div>
 <div class="navbar">
     <ul>

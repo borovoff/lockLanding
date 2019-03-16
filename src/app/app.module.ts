@@ -19,6 +19,7 @@ import {ActivatedRouteSnapshot, RouterStateSnapshot} from '@angular/router';
 import { PixelSizeDirective } from './directive/pixel-size/pixel-size.directive';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { DomSanitizerPipe } from './pipe/dom-sanitizer/dom-sanitizer.pipe';
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
     return new TranslateHttpLoader(httpClient);
@@ -35,7 +36,8 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
         ContactComponent,
         OrderComponent,
         DownloadsComponent,
-        PixelSizeDirective
+        PixelSizeDirective,
+        DomSanitizerPipe
     ],
     imports: [
         BrowserModule,

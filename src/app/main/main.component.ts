@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import {BottomNavbar} from '../bottom-navbar/bottom-navbar.component';
+import {TranslateService} from '@ngx-translate/core';
+import {DomSanitizer} from '@angular/platform-browser';
 
 @Component({
     selector: 'app-main',
@@ -10,6 +12,12 @@ export class MainComponent {
     imgHidden = false;
     frameHidden = true;
     modelHidden = true;
+    link: string;
+
+    constructor(private translate: TranslateService,
+                private sanitizer: DomSanitizer) {
+        this.link = 'https://www.youtube.com/embed/9gXVjCm82pM?rel=0&modestbranding=1';
+    }
 
     onNotify(item) {
         switch (item) {

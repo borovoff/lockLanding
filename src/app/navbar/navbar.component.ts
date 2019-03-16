@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {TranslateService} from '@ngx-translate/core';
 
 @Component({
     selector: 'app-navbar',
     templateUrl: './navbar.component.html',
-    styleUrls: ['../app.component.scss']
+    styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent {
 
@@ -41,6 +41,7 @@ export class NavbarComponent {
     onClickMe() {
         document.getElementById('mySidenav').style.width = '250px';
     }
+
     onClose() {
         document.getElementById('mySidenav').style.width = '0';
     }

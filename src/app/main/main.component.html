@@ -2,7 +2,10 @@
     <img [hidden]="imgHidden" src="assets/images/carousel_black_new.jpg" alt="tzarLock">
 
     <iframe *ngIf="!frameHidden"
-            src="https://www.youtube.com/embed/9gXVjCm82pM?rel=0&modestbranding=1"
+            [src]="'https://www.youtube.com/embed/9gXVjCm82pM?rel=0&modestbranding=1' +
+             (translate.currentLang !== 'ru' ? '&cc_load_policy=1' : '') +
+             '&cc_lang_pref=' + translate.currentLang +
+             '&hl=' + translate.currentLang | domSanitizer"
             frameborder="0"
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen></iframe>

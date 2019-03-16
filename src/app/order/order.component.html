@@ -29,14 +29,14 @@
 
     <div class="example-container">
         <mat-form-field>
-            <input matInput placeholder="{{'order.name' | translate}}" [(ngModel)]="name" >
+            <input matInput [placeholder]="'order.name' | translate" [(ngModel)]="name" >
         </mat-form-field>
         <mat-form-field>
             <input matInput placeholder="Mail" [(ngModel)]="mail">
         </mat-form-field>
 
         <mat-form-field>
-            <input matInput [placeholder]="placeholder.phone" [(ngModel)]="phone" >
+            <input matInput [placeholder]="'order.phone' | translate" [(ngModel)]="phone" >
         </mat-form-field>
 
         <mat-progress-bar *ngIf="status === OrderStatus.Sending" mode="buffer"></mat-progress-bar>
