@@ -48,7 +48,17 @@
         },
         "rent": {
             "h": "How to start riding",
-            "p": "<li> <a href='https://lock.tzar.su/downloads'>Download app.</a></li> <li > Sign in with VK and wait for notification about login confirmation (in a few minutes).</li> <li> In app buy minutes </li> <li> Find suitable bike on the map </li> <li> Enable bluetooth, press camera icon and scan QR-code </li> <li> Press button on the lock for 1-2 seconds. You should take notification in app and lock should open </li> <li> You can park your bike while riding. Park bike and press lock button - lock will close but riding won’t end </li>"
+            "p": {
+                "li1": "Download app",
+                "li2": "Sign in with VK and wait for notification about providing access to the rental system after VK account check (in a few minutes).",
+                "li3": "In app buy minutes.",
+                "li4": "Find suitable bike on the map.",
+                "li5": "Enable bluetooth, press camera icon and scan QR-code.",
+                "li6": "Press button on the lock for 1-2 seconds. You should take notification in app and lock should open.",
+                "li7": "You can park your bike while riding. Park bike and press lock button - lock will close but riding won’t end."
+
+            } 
+            
         },
         "end": {
             "h": "How to end riding",
