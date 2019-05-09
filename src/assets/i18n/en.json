@@ -53,8 +53,8 @@
                 "li2": "Sign in with VK and wait for notification about providing access to the rental system after VK account check (in a few minutes).",
                 "li3": "In app buy minutes.",
                 "li4": "Find suitable bike on the map.",
-                "li5": "Enable bluetooth, press camera icon and scan QR-code.",
-                "li6": "Press button on the lock for 1-2 seconds. You should take notification in app and lock should open.",
+                "li5": "Enable bluetooth, press lock icon and scan QR-code.",
+                "li6": "Press button on the lock for 1-2 seconds, pushing the shackle into the lock. You should take notification in app and lock should open.",
                 "li7": "You can park your bike while riding. Park bike and press lock button - lock will close but riding won’t end."
 
             } 
