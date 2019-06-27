@@ -31,7 +31,10 @@
         "disassemble": "Space — disassemble"
     },
     "contact": {
-        "app": "Alfa-version for Android is available. Full apps will be available as soon as production completes. For testing purpose please write to "
+        "app": "Alfa-version for Android is available. Full apps will be available as soon as production completes. For testing purpose please write to ",
+        "socials": "Socials",
+        "support": "Support",
+        "instruction": "Instruction"
     },
     "lock": {
         "smart": {

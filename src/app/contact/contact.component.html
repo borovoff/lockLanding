@@ -1,14 +1,36 @@
 
 <div class="wrapper" style = "padding-top: 10px">
+    <h3>{{'contact.support' | translate}}</h3>
     <ul class="contact" style="list-style: none">
         <li *ngFor="let contact of contacts">
             <a href="{{contact.href}}"
                [ngSwitch]="contact.svgIcon"
                target="_blank" style = "text-decoration: none; color: black">
                 <mat-icon *ngSwitchCase="'mail'" >mail</mat-icon>
+                <mat-icon *ngSwitchCase="'phone'" >phone</mat-icon>
                 <mat-icon *ngSwitchDefault
                           svgIcon="{{contact.svgIcon}}"></mat-icon>
                 {{contact.name}}
+            </a>
+        </li>
+    </ul>
+    <h3>{{'contact.socials' | translate}}</h3>
+    <ul class="contact" style="list-style: none">
+        <li *ngFor="let social of socials">
+            <a href="{{social.href}}"
+               target="_blank" style = "text-decoration: none; color: black">
+                <mat-icon
+                          svgIcon="{{social.svgIcon}}"></mat-icon>
+                {{social.name}}
+            </a>
+        </li>
+    </ul>
+    <h3>{{'contact.instruction' | translate}}</h3>
+    <ul class="contact" style="list-style: none">
+        <li>
+            <a routerLink="/lock"
+                style = "text-decoration: none; color: black">
+                lock.tzar.su/lock
             </a>
         </li>
     </ul>
