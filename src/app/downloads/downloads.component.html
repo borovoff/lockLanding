@@ -2,7 +2,7 @@
 
     <div align="center">
         <a class="icon-appstore" routerLink="/downloads"><img [src]="'assets/images/appstore_' + path.apple + '.svg'"></a>
-        <a class="icon-googleplay" target="_blank" href="https://play.google.com/store/apps/details?id=su.tzar.borovovaleksandr.tzar"><img [src]="'assets/images/googleplay_' + path.google + '.png'"></a>
+        <a class="icon-googleplay" target="_blank" href="https://play.google.com/store/apps/details?id=su.tzar.borovovaleksandr.tzar" onclick="ga('send', 'event', 'Button', 'press', 'Android');"><img [src]="'assets/images/googleplay_' + path.google + '.png'"></a>
     </div>
 
     <p class="contact">
