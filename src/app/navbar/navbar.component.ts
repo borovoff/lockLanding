@@ -14,7 +14,7 @@ export class NavbarComponent {
         {name: 'navbar.contact', link: '/contact', target: '_self'},
         {name: 'navbar.lock', link: '/lock', target: '_self'},
         {name: 'navbar.downloads', link: '/downloads', target: '_self'},
-        {name: 'navbar.order', link: '/order', target: '_self'}
+        // {name: 'navbar.order', link: '/order', target: '_self'}
     ];
 
     mainItem = {name: 'navbar.home', link: '', target: '_self'};

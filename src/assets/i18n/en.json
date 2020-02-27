@@ -12,7 +12,7 @@
         "home": "Home",
         "blog": "Blog",
         "contact": "Contact",
-        "lock": "Lock",
+        "lock": "Services",
         "downloads": "Downloads",
         "order": "Preorder"
     },
@@ -60,8 +60,8 @@
                 "li6": "Press button on the lock for 1-2 seconds, pushing the shackle into the lock. You should take notification in app and lock should open.",
                 "li7": "You can park your bike while riding. Park bike and press lock button - lock will close but riding won’t end."
 
-            } 
-            
+            }
+
         },
         "end": {
             "h": "How to end riding",
@@ -70,6 +70,10 @@
         "restrictions": {
             "h": "Restrictions",
             "p": "We do not recommend to use lock at temperatures below 0°C: accumulator can freeze and lock block."
-        }
+        },
+      "cost": {
+        "h": "Cost",
+        "p": "Any ride for 3 rubles per minute."
+      }
     }
 }
