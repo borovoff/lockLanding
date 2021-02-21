@@ -4,8 +4,9 @@ import './js/EnableThreeExamples';
 import 'three/examples/js/loaders/ColladaLoader';
 import 'three/examples/js/loaders/GLTFLoader';
 import 'three/examples/js/controls/OrbitControls';
-import {FOLDERS} from '../mock/folders';
+import {SHARING_FOLDERS, GSM_FOLDERS, SCOOTER_FOLDERS} from '../mock/folders';
 import {SceneAnimation} from '../model/scene-animation';
+import { TextureLoader } from 'three';
 
 @Component({
     selector: 'app-threejs',
@@ -23,7 +24,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     height;
     width;
     scenes = [];
-    path = 'assets/model/';
+    path = 'assets/model/GSMLock/';
     loader;
     i;
     textureLoader;
@@ -35,7 +36,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     command = ThreeCommand.Disassemble;
     requestFlag;
     manager;
-    folders = FOLDERS;
+    folders = GSM_FOLDERS;
 
     constructor() {
         this.urls = [ 'posx.jpg', 'negx.jpg', 'posy.jpg', 'negy.jpg', 'posz.jpg', 'negz.jpg' ];
@@ -43,14 +44,14 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.background = this.textureLoader.load( this.urls );
         this.scene = new THREE.Scene();
 
-        this.scene.background = new THREE.Color( 0x171717 );
+        this.scene.background = new THREE.Color( 0xffffff );
 
-        const light = new THREE.PointLight(0xffffff, 2, 1000);
-        light.position.set(100, 30, 100); // 100,10,0
-        const light1 = new THREE.PointLight(0xffffff, 0.6, 1000);
-        light1.position.set(0, -100, 0); // -100,10,0
-        const light2 = new THREE.PointLight(0xffffff, 0.2, 1000);
-        light2.position.set(50, 0, -40); // -100,10,0
+        const light = new THREE.PointLight(0xffffff, 0.5, 1000);
+        light.position.set(500, 0, 500); // 100,10,0
+        const light1 = new THREE.PointLight(0xffffff, 0.5, 1000);
+        light1.position.set(0, -500, 0); // -100,10,0
+        const light2 = new THREE.PointLight(0xffffff, 0.5, 1000);
+        light2.position.set(500, 0, -500); // -100,10,0
 
         this.lightHolder = new THREE.Group();
         this.lightHolder.add(light);
@@ -61,9 +62,9 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.scene.add( new THREE.AmbientLight( 0xffffff ) );
 
         this.camera = new THREE.PerspectiveCamera(1, window.innerWidth / window.innerHeight, 1, 10000);
-        this.camera.position.z = 10;
-        this.camera.position.x = 10;
-        this.camera.position.y = 5;
+        this.camera.position.z = 13;
+        this.camera.position.x = 13;
+        this.camera.position.y = 4;
 
         this.manager = new THREE.LoadingManager();
         this.manager.onLoad = this.onLoad.bind(this);
@@ -72,8 +73,8 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
         this.load();
 
         this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-        this.controls.center.z = 0.07;
-        this.controls.center.y = 0.08;
+        this.controls.center.z = 0.0;
+        this.controls.center.y = 0.0;
         this.controls.update();
     }
 
