@@ -24,7 +24,6 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     height;
     width;
     scenes = [];
-    path = 'assets/model/GSMLock/';
     loader;
     i;
     textureLoader;
@@ -36,6 +35,7 @@ export class ThreejsComponent implements AfterViewInit, OnDestroy {
     command = ThreeCommand.Disassemble;
     requestFlag;
     manager;
+    path = 'assets/model/GSMLock/';
     folders = GSM_FOLDERS;
 
     constructor() {
